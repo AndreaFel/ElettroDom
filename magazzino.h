@@ -40,7 +40,7 @@ private:
 	};
 
 	//funzione ricerca binaria privata
-	int binSearchCoppie(vector<Coppia> a, int from, int to, std::string toFind);
+	int binSearchCoppie(const vector<Coppia>& a, int from, int to, std::string toFind);
 
 	//funzione che restituisce un int che rappresenta quanti componenti bisogna ordinare oltre a quelli rimossi
 	//restituisce -1 se non e' presente il componente cercato
