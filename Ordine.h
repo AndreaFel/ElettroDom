@@ -31,11 +31,11 @@ public:
 	//aggiunge un ordine con id, quantità e mese passati per parametro e stato "futuro"
 	void addOrdine(std::string id, int quantita, int mese);
 	
-	ordini getOrdine(int mese, std::string id);//ritorna un ordine specifico
-	std::vector<ordini> getOrdini(int mese);//ritorna gli ordini del mese (con stato "futuro")
-	std::vector<ordini> getInAttesa();//ritorna tutti gli ordini in attesa
-	std::vector<ordini> getInProduzione();//ritorna tutti gli ordini in produzione
-	std::vector<ordini> getEvasi();//ritorna tutti gli ordini evasi
+	ordini getOrdine(int mese, std::string id) const;//ritorna un ordine specifico
+	std::vector<ordini> getOrdini(int mese) const;//ritorna gli ordini del mese (con stato "futuro")
+	std::vector<ordini> getInAttesa() const;//ritorna tutti gli ordini in attesa
+	std::vector<ordini> getInProduzione() const;//ritorna tutti gli ordini in produzione
+	std::vector<ordini> getEvasi() const;//ritorna tutti gli ordini evasi
 	
 	void setInAttesa(int mese, std::string id);//setta uno specifico ordine allo stato "in attesa"
 	void setInProduzione(int mese,std::string id);//setta uno specifico ordine allo stato "in produzione"
