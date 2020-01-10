@@ -29,7 +29,7 @@ public:
 	int getPezzi(int i)const;
 
 	//funzione print che stampa i componenti nel magazzino con le relative quantita'
-	void printMagazzino();
+	void printMagazzino()const;
 	
 
 private:
