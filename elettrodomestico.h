@@ -1,8 +1,10 @@
+//Autore: Edoardo Bastianello , numero matricola: 1188629
+//header "elettrodomestico.h"
 
 class elettrodomestico{
 
 public:
-	//costruttore(quello di default non e' definito
+	//costruttore(quello di default non e' definito)
 	elettrodomestico(string idIns, string nomeIns, double prezzoAcquistoIns, double prezzoVenditaIns);
 
 	//funzioni di lettura
@@ -10,12 +12,11 @@ public:
 	std::string getNome()const;
 	double getPrezzoAcquisto()const;
 	double getPrezzoVendita()const;
-
-	vector<componentiElettrodomestico> getComponents()const;
+	vector<componentiElettrodomestico> getComponents()const;//restituisce un vector di componentiElettrodomestico
 	
 	
 
-	//funzione di inserimento
+	//funzione di inserimento per aggiungere i componenti necessari per il relativo elettrodomestico
 	void addComponentToLst(componente ins, int quantity);
 
 	
@@ -23,11 +24,10 @@ public:
 
 
 private:
-	//variabili membro
+	//dati membro
 	std::string id;
 	string nome;
 	double prezzoAcquisto;
 	double prezzoVendita;
-
 	vector<componentiElettrodomestico> lstComponenti;
 };
