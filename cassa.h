@@ -1,9 +1,12 @@
+//Autore: Edoardo Bastianello , numero matricola: 1188629
+//header "cassa.h"
+
 class cassa{
 public:
 	//costruttore vuoto che inizializza il fondo a 10000
 	cassa();
 
-	//costruttore non vuoto
+	//costruttore non vuoto che inizializza il fondo al valore indicato da "start"
 	cassa(double start);
 
 	//funzione "addFondo" che aggiunge un saldo al fondo della cassa
@@ -18,14 +21,16 @@ public:
 
 	//funzione check che controlla se il prezzo e' maggiore del fondo della cassa
 	//restituisce false se il fondo e' minore di price, true altrimenti
-	bool check(double price);	
+	bool check(double price);
+
+	//funzione di lettura
+	double getFondo();
 	
 
 private:
 	//classe interna per lancio eccezioni
 	class Invalid{};
 
-	//variabile membro
+	//dato membro
 	double fondo;
 };
-
