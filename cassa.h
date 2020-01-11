@@ -17,14 +17,14 @@ public:
 	void subtractFondo(double price);
 
 	//funzione di stampa
-	void printFondo();
+	void printFondo()const;
 
 	//funzione check che controlla se il prezzo e' maggiore del fondo della cassa
 	//restituisce false se il fondo e' minore di price, true altrimenti
 	bool check(double price);
 
 	//funzione di lettura
-	double getFondo();
+	double getFondo()const;
 	
 
 private:
