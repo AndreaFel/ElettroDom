@@ -29,12 +29,12 @@ void cassa::subtractFondo(double price)
 }
 
 //funzione di stampa
-void cassa::printFondo()
+void cassa::printFondo()const
 {	cout << fondo << '\n';
 }
 
 //funzione getFondo
-double cassa::getFondo()
+double cassa::getFondo()const
 {	return fondo;
 }
 
