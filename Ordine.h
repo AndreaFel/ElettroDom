@@ -16,7 +16,6 @@ enum stato{
 };
 
 //ordine rappresenta un singolo ordine
-//il mese nel quale verrà ricevuto è dato dalla sua posizione nel vettore e l'anno dal valore di "anno"
 struct ordini{
 	int mese;
 	std::string id;//id elettrodomestico ordinato
