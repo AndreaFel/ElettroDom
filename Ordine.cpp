@@ -1,5 +1,3 @@
-//Autore: Andrea Felline , numero matricola: 1195927
-//header "Ordine.cpp"
 #include <vector>
 #include <iostream>
 #include <algorithm>
@@ -153,4 +151,8 @@ vector<ordini> Ordine::incrementaMese(){
 			ord[i].s=evaso;
 	
 	return getOrdini(meseCorrente);
+}
+
+int Ordine::getMeseMax(){
+	return ord[ord.size()-1].mese;
 }
