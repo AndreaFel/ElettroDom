@@ -1,3 +1,6 @@
+//Autore: Andrea Felline , numero matricola: 1195927
+//header "Ordine.cpp"
+
 #ifndef OrdineH
 #define OrdineH
 
