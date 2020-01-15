@@ -29,6 +29,11 @@ struct ordini{
 	bool operator < (const ordini& o) const;//definisce un ordine nella struct (in base al mese, a parità di mese in base all'id)
 };
 
+struct components{
+	std::string id;
+	int pezzi;
+};
+
 class Ordine{
 	
 public:
@@ -45,10 +50,18 @@ public:
 	std::vector<ordini> getEvasi() const;//ritorna tutti gli ordini evasi
 	int getMeseMax();
 	
+	//controllo componenti già presenti in magazzino (o la differenza con quelli necessari) relativi a un certo ordine
+	//utilizzo consigliato: getPezziComp(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente);
+	int getPezziComp(ordini o, std::string id);
+	
 	void setInAttesa(int mese, std::string id);//setta uno specifico ordine allo stato "in attesa"
 	void setInProduzione(int mese,std::string id);//setta uno specifico ordine allo stato "in produzione"
 	void setEvaso(int mese, std::string id);//setta uno specifico ordine allo stato "evaso"
 	void annullaOrdine(std::string id);//setta uno specifico ordine allo stato "annullato"
+	
+	//funzione per aggiungere i componenti già presenti in magazzino (o la differenza con quelli necessari) relativi a un certo ordine
+	//utilizzo consigliato: addComponent(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente, int pezzi_componente);
+	void addComponent(ordini ordine, std::string id, int pezzi);
 
 	//passa al mese successivo (portando tutti gli ordini "in produzione" a "evaso") e ritorna i nuovi ordini
 	//	NB: se si preferisce prendere i nuovi ordini separatamente, si può considerare questa funzione come void 
@@ -60,7 +73,11 @@ private:
 	//vector di ordini ordinato in base al mese
 	std::vector<ordini> ord {};
 	
+	//un vector di componenti per ogni ordine
+	std::vector<std::vector<components>> comps{};
+	
 	int binarySearch(int mese) const; //restituisce l'indice del primo ordine del mese
+	int getPos(ordini o);
 };
 
 #endif
