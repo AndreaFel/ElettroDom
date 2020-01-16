@@ -34,7 +34,9 @@ public:
 
 	//funzione print che stampa i componenti nel magazzino con le relative quantita' in ordine alfabetico
 	void printMagazzino()const;
-	
+
+	//funzione magazzinoToString() che restituisce una stringa con i componenti nel magazzino con le relative quantita' in ordine alfabetico
+	std::string magazzinoToString() const;
 
 private:
 	//struct privata Coppia per attribuire il numero di pezzi al relativo id del componente
@@ -53,3 +55,5 @@ private:
 	//membro
 	std::vector<Coppia> oggetti;
 };
+
+
