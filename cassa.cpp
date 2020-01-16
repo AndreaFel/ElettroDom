@@ -5,11 +5,6 @@ using namespace std;
 #include <iostream>
 #include "cassa.h"
 
-//costruttore vuoto
-cassa::cassa()
-	:fondo{10000}
-{}
-
 //costruttore
 cassa::cassa(double start)
 	:fondo{start}
