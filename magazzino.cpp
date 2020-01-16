@@ -90,6 +90,14 @@ void magazzino::printMagazzino()const
 			cout<<"ID componente: "<<oggetti[i].id<<" || numero di tale componente: "<<oggetti[i].pezzi<<"\n";
 }
 
+//funzione magazzinoToString() che restituisce una stringa con i componenti nel magazzino con le relative quantita' in ordine alfabetico
+std::string magazzino::magazzinoToString() const
+{	string output = "";
+	for(int i=0;i<oggetti.size();i++)
+			output = output + "ID componente: " + oggetti[i].id + " || numero di tale componente: " + to_string(oggetti[i].pezzi) + "\n";
+	return output;
+}
+
 //***********************************************************************************************
 //funzioni private della classe magazzino
 int magazzino::binSearchCoppie(const vector<Coppia>& a, int from, int to, string toFind)
