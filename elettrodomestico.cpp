@@ -9,17 +9,13 @@ using namespace std;
 #include "elettrodomestico.h"
 
 //costruttore
-elettrodomestico::elettrodomestico(string idIns, string nomeIns, double prezzoAcquistoIns, double prezzoVenditaIns)
-	:id{idIns}, nome{nomeIns}, prezzoAcquisto{prezzoAcquistoIns}, prezzoVendita{prezzoVenditaIns}, lstComponenti{}
+elettrodomestico::elettrodomestico(string idIns, string nomeIns, double prezzoVenditaIns)
+	:id{idIns}, nome{nomeIns}, prezzoVendita{prezzoVenditaIns}, lstComponenti{}
 {}
 
 //funzioni di lettura
 string elettrodomestico::getId()const
 {	return id;
-}
-
-double elettrodomestico::getPrezzoAcquisto()const
-{	return prezzoAcquisto;
 }
 
 double elettrodomestico::getPrezzoVendita()const
