@@ -3,9 +3,6 @@
 
 class cassa{
 public:
-	//costruttore vuoto che inizializza il fondo a 10000
-	cassa();
-
 	//costruttore non vuoto che inizializza il fondo al valore indicato da "start"
 	cassa(double start);
 
