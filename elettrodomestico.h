@@ -5,12 +5,11 @@ class elettrodomestico{
 
 public:
 	//costruttore(quello di default non e' definito)
-	elettrodomestico(string idIns, string nomeIns, double prezzoAcquistoIns, double prezzoVenditaIns);
+	elettrodomestico(string idIns, string nomeIns, double prezzoVenditaIns);
 
 	//funzioni di lettura
 	std::string getId()const;
 	std::string getNome()const;
-	double getPrezzoAcquisto()const;
 	double getPrezzoVendita()const;
 	vector<componentiElettrodomestico> getComponents()const;//restituisce un vector di componentiElettrodomestico
 	
@@ -27,7 +26,6 @@ private:
 	//dati membro
 	std::string id;
 	string nome;
-	double prezzoAcquisto;
 	double prezzoVendita;
 	vector<componentiElettrodomestico> lstComponenti;
 };
