@@ -32,6 +32,7 @@ struct ordini{
 struct components{
 	std::string id;
 	int pezzi;
+	int mesi; //mesi mancanti all'arrivo del componente
 };
 
 class Ordine{
@@ -50,23 +51,30 @@ public:
 	std::vector<ordini> getEvasi() const;//ritorna tutti gli ordini evasi
 	int getMeseMax();
 	
-	//controllo componenti già presenti in magazzino (o la differenza con quelli necessari) relativi a un certo ordine
+	//controllo componenti già presenti in magazzino o in arrivo, relativi a un certo ordine
 	//utilizzo consigliato: getPezziComp(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente);
 	int getPezziComp(ordini o, std::string id);
+	int getMesiComp(ordini o, std::string id); //in caso di più ordini riporta il risultato maggiore 
 	
 	void setInAttesa(int mese, std::string id);//setta uno specifico ordine allo stato "in attesa"
 	void setInProduzione(int mese,std::string id);//setta uno specifico ordine allo stato "in produzione"
 	void setEvaso(int mese, std::string id);//setta uno specifico ordine allo stato "evaso"
 	void annullaOrdine(std::string id);//setta uno specifico ordine allo stato "annullato"
 	
-	//funzione per aggiungere i componenti già presenti in magazzino (o la differenza con quelli necessari) relativi a un certo ordine
-	//utilizzo consigliato: addComponent(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente, int pezzi_componente);
-	void addComponent(ordini ordine, std::string id, int pezzi);
+	//funzione per aggiungere i componenti già presenti in magazzino o in transito, relativi a un certo ordine
+	//se il componente è già presente (a parità di mesi) ne setta il numero di pezzi (sovrascrive)
+	//utilizzo consigliato: addComponent(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente, int pezzi_componente, int mesi_mancanti);
+	void addComponent(ordini ordine, std::string id, int pezzi, int mesi);
+	
+	//funzioni di modifica del numero di pezzi e dei mesi mancanti di un componente
+	//se ci sono più componenti con diversi valori di "mesi" le funzioni non fanno niente
+	//utilizzo consigliato: subPezziComp(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente, int differenza);
+	void sumPezziComp(ordini o, std::string id, int diff);//somma "diff" componenti (usare diff negativo per sottrarre)
+	void setMesiComp(ordini o, std::string id, int mesi);//setta i mesi (sovrascrive)
 
-	//passa al mese successivo (portando tutti gli ordini "in produzione" a "evaso") e ritorna i nuovi ordini
-	//	NB: se si preferisce prendere i nuovi ordini separatamente, si può considerare questa funzione come void 
-	//		e poi chiamare "getOrdini" all'occorrenza
-	std::vector<ordini> incrementaMese();
+	//passa al mese successivo (portando tutti gli ordini "in produzione" a "evaso"). Aggiorna la situazione dei componenti in arrivo.
+	//ritorna una booleana che indica se sono stati evasi degli ordini durante il mese (da riportare al main)
+	bool incrementaMese();
 private:
 	int meseCorrente;//indica il mese corrente
 	
