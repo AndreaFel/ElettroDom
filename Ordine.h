@@ -52,7 +52,7 @@ public:
 	int getMeseMax();
 	
 	//controllo componenti già presenti in magazzino o in arrivo, relativi a un certo ordine
-	//utilizzo consigliato: getPezziComp(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente);
+	//utilizzo:	sgetPezziComp(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente);
 	int getPezziComp(ordini o, std::string id);
 	int getMesiComp(ordini o, std::string id); //in caso di più ordini riporta il risultato maggiore 
 	
@@ -62,13 +62,14 @@ public:
 	void annullaOrdine(std::string id);//setta uno specifico ordine allo stato "annullato"
 	
 	//funzione per aggiungere i componenti già presenti in magazzino o in transito, relativi a un certo ordine
-	//se il componente è già presente (a parità di mesi) ne setta il numero di pezzi (sovrascrive)
-	//utilizzo consigliato: addComponent(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente, int pezzi_componente, int mesi_mancanti);
+	//N.B.: 	se il componente è già presente (a parità di mesi) ne setta il numero di pezzi (sovrascrive)
+	//utilizzo:	addComponent(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente, int pezzi_componente, int mesi_mancanti);
+	//WARNING: 	se non si inseriscono tutti i componenti di un ordine esso andrà comunque in produzione (non appena arrivano quelli inseriti)
 	void addComponent(ordini ordine, std::string id, int pezzi, int mesi);
 	
 	//funzioni di modifica del numero di pezzi e dei mesi mancanti di un componente
-	//se ci sono più componenti con diversi valori di "mesi" le funzioni non fanno niente
-	//utilizzo consigliato: subPezziComp(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente, int differenza);
+	//N.B.:		se ci sono più componenti con diversi valori di "mesi" le funzioni non fanno niente
+	//utilizzo:	subPezziComp(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente, int differenza);
 	void sumPezziComp(ordini o, std::string id, int diff);//somma "diff" componenti (usare diff negativo per sottrarre)
 	void setMesiComp(ordini o, std::string id, int mesi);//setta i mesi (sovrascrive)
 
