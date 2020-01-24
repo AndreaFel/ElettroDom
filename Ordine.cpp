@@ -229,11 +229,11 @@ bool Ordine::incrementaMese(){
 		for(int j=0;j<comps[i].size();j++)
 			if(comps[i][j].mesi>0){
 				comps[i][j].mesi--;
-				if(comps[i][j]>0)//se uno dei componenti dell'ordine non è ancora a 0
-					mothTo0=false;
+				if(comps[i][j].mesi>0)//se uno dei componenti dell'ordine non è ancora a 0
+					monthTo0=false;
 			}
 		
-		if(mothTo0)
+		if(monthTo0)
 			ord[i].s=inProduzione;
 	}
 	
