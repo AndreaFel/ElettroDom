@@ -3,8 +3,9 @@
 #ifndef componenteH
 #define componenteH
 
+#include <vector>
 #include <iostream>
-	
+
 class componente{
 		
 public:
