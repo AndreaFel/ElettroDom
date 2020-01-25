@@ -1,5 +1,7 @@
 //Autore: Edoardo Bastianello , numero matricola: 1188629
 //header "elettrodomestico.h"
+#ifndef elettrodomesticoH
+#define elettrodomesticoH
 
 class elettrodomestico{
 
@@ -29,3 +31,5 @@ private:
 	double prezzoVendita;
 	vector<componentiElettrodomestico> lstComponenti;
 };
+
+#endif
