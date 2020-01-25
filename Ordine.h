@@ -75,6 +75,11 @@ public:
 	//passa al mese successivo (portando tutti gli ordini "in produzione" a "evaso"). Aggiorna la situazione dei componenti in arrivo.
 	//ritorna una booleana che indica se sono stati evasi degli ordini durante il mese (da riportare al main)
 	bool incrementaMese();
+	
+	//ritorna una stringa con i componenti in arrivo con il formato: ID: [id]	PEZZI: [pezzi]\n
+	string printInArrivo();
+	//ritorna una stringa con i componenti arrivati ma non ancora usati per produrre pezzi con il formato: ID componente: ID: [id]	PEZZI: [pezzi]\n
+	string printNonUsati();
 private:
 	int meseCorrente;//indica il mese corrente
 	
@@ -85,7 +90,6 @@ private:
 	std::vector<std::vector<components>> comps{};
 	
 	int binarySearch(int mese) const; //restituisce l'indice del primo ordine del mese
-	int getPos(ordini o);
 };
 
 #endif
