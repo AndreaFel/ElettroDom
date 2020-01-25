@@ -5,6 +5,8 @@
 #ifndef componentiElettrodomesticoH
 #define componentiElettrodomesticoH
 
+#include "componente.h"
+
 class componentiElettrodomestico{
 
 public:
