@@ -1,5 +1,7 @@
 //Autore: Edoardo Bastianello , numero matricola: 1188629
 //header "cassa.h"
+#ifndef cassaH
+#define cassaH
 
 class cassa{
 public:
@@ -31,3 +33,5 @@ private:
 	//dato membro
 	double fondo;
 };
+
+#endif
