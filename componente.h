@@ -1,5 +1,7 @@
 //Autore: Edoardo Bastianello , numero matricola: 1188629
 //header "componente.h
+#ifndef componenteH
+#define componenteH
 
 #include <iostream>
 	
@@ -25,3 +27,5 @@ private:
 	int mesi;
 	std::vector <double> prezzi;
 };
+
+#endif
