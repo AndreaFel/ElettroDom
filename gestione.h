@@ -13,7 +13,7 @@
 #include "cassa.h"
 #include "Ordine.h"
 
-struct componenti
+struct addictional_components
 {
 	std::string id;
 	int pezzi;
@@ -48,15 +48,16 @@ class Gestione{
 	private:
 		cassa cash;
 		magazzino mag; //lista dei componenti che sono presenti in magazzino
-		std::vector<componenti> inArrivo; //lista dei componenti ordinati, in arrivo
+		std::vector<addictional_components> inArrivo; //lista dei componenti ordinati, in arrivo
 		Ordine ord; //classe contenente un vettore ordinato di ordini in base al time_stamp
 		std::vector<elettrodomestico> db; //"catalogo" degli elettrodomestici da noi prodotti
 		int mese;
 
 		bool checkCassa(double d); //Verifica del fondo cassa prima di eseguire ordini
 
-		void aggiornaMese(); //Funzione che blocca il programma per qualche secondo e poi passa alle operazioni del mese successivo
-		
+		bool aggiornaMese(); //Funzione che blocca il programma per qualche secondo e poi passa alle operazioni del mese successivo
+							//scorre il vettore componenti in arrivo, decrementando il timer e mandando i pezzi in magazzino quando è uguale a 0
+
 		void produzioneMese();
 		/*
 		- scorre la lista di ordini per ordini mese corrente
@@ -70,11 +71,6 @@ class Gestione{
 		void FileElettrodomestici();
 		std::vector<std::string> FileModelli();
 		
-		void aggiornaArrivi(); 
-		/* scorre il vettore di componenti in arrivo decrementando il timer, se è uguale a 0
-		- aggiorna i pezzi in magazzino
-		- rimuove l'elemento dal vector<componenti>
-		*/
 };
 
 #endif

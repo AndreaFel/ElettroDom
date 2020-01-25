@@ -58,7 +58,6 @@ vector<componente> Gestione::FileComponenti(){  //Lettura file "components_info.
 	return comps;
 }
 
-//funzione fatta da Andrea Felline, matricola: 1195927
 void Gestione::FileOrdini(){  //lettura file "orders.dat"
 	string model_id;
 	int time_stamp = 0, quantita = 0;
@@ -117,9 +116,19 @@ void Gestione::FileElettrodomestici(){  //lettura file "modelx.dat"
 	}
 }
 
-void Gestione::aggiornaMese(){
+bool Gestione::aggiornaMese(){
 	Sleep(3000);      //blocca il programma per 3 secondi e incrementa il mese
 	mese++;
+	for(int i=0;i<inArrivo.size();i++)
+	{
+		inArrivo[i].timer --;
+		if(inArrivo[i].timer == 0){
+			mag.add(inArrivo[i].id,inArrivo[i].pezzi);
+			inArrivo.erase(i);
+		} 
+
+	}
+	return ord.incrementamese();
 }
 
 bool Gestione::checkCassa(double d){
@@ -147,23 +156,26 @@ void Gestione::ProduzioneMese(){
 
 		if(pos == -1) ord.annullaOrdine(model_id);  //se non viene trovato, l'ordine è annullato
 		else{
-			if(!cash.Check(db[pos].getCostoProduzione)) ord.annullaOrdine(prod_mese[i].id); //check costo di produzione dell'elettrodomestico
-			else{
-				vector<componentiElettrodomestico> comp_nec = db[pos].getComponents();
-				vector<componenti> da_ordinare;
-				for(int k=0;k<comp_nec.size();k++){
-					if(mag.checkEnough(comp_nec.getComponente().getId(),comp_nec.getPezzi()*quantita)!=0){
-						da_ordinare.push_back(componenti())
-					}
 
-				}
+			vector<componentiElettrodomestico> comp_nec = el.getComponents();  //componenti necessari per la produzione dell'elettrodomestico
 
-
+			double costo_produzione = 0;
+			for(int i=0;i<comp.size();i++){
+				costo_produzione += comp_nec[i].getComponents().getPrezzo() * comp.getPezzi();      //calcolo del costo di produzione
 			}
-
-
-		}
-
-		
+			if(!cash.Check(costo_produzione)) ord.annullaOrdine(prod_mese[i].id); //check cassa con il costo di produzione
+			else{
+				for(int k=0;k<comp_nec.size();k++){
+					addictional_components c;                      //creazione elemento struct componenti
+					c.id = comp_nec.getComponents().getId();
+					c.pezzi = mag.checkEnough(c.id,comp_nec.getPezzi());
+					c.timer = comp_nec.getComponents().getMesi();
+					inArrivo.push_back(c);               //aggiunta nel vettore dei componenti in arrivo
+				}
+			}
+		}	
 	}
 }
+
+
+
