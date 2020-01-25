@@ -5,6 +5,9 @@
 
 class cassa{
 public:
+	//classe interna per lancio eccezioni
+	class Invalid{};
+
 	//costruttore non vuoto che inizializza il fondo al valore indicato da "start"
 	cassa(double start);
 
@@ -25,11 +28,7 @@ public:
 	//funzione di lettura
 	double getFondo()const;
 	
-
 private:
-	//classe interna per lancio eccezioni
-	class Invalid{};
-
 	//dato membro
 	double fondo;
 };
