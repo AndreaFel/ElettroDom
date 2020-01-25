@@ -2,6 +2,9 @@
 //header "componentiElettrodomestico.h"
 //un oggetto di tipo componentiElettrodomestico servira' per realizzare la classe elettrodomestico
 
+#ifndef componentiElettrodomesticoH
+#define componentiElettrodomesticoH
+
 class componentiElettrodomestico{
 
 public:
@@ -18,3 +21,5 @@ private:
 	componente c;
 	int pezzi;
 };
+
+#endif
