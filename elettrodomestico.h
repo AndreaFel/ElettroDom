@@ -3,17 +3,22 @@
 #ifndef elettrodomesticoH
 #define elettrodomesticoH
 
+#include <vector>
+#include <iostream>
+#include "componente.h"
+#include "componentiElettrodomestico.h"
+
 class elettrodomestico{
 
 public:
 	//costruttore(quello di default non e' definito)
-	elettrodomestico(string idIns, string nomeIns, double prezzoVenditaIns);
+	elettrodomestico(std::string idIns, std::string nomeIns, double prezzoVenditaIns);
 
 	//funzioni di lettura
 	std::string getId()const;
 	std::string getNome()const;
 	double getPrezzoVendita()const;
-	vector<componentiElettrodomestico> getComponents()const;//restituisce un vector di componentiElettrodomestico
+	std::vector<componentiElettrodomestico> getComponents()const;//restituisce un vector di componentiElettrodomestico
 	
 	
 
@@ -27,9 +32,9 @@ public:
 private:
 	//dati membro
 	std::string id;
-	string nome;
+	std::string nome;
 	double prezzoVendita;
-	vector<componentiElettrodomestico> lstComponenti;
+	std::vector<componentiElettrodomestico> lstComponenti;
 };
 
 #endif
