@@ -1,5 +1,8 @@
 //Autore: Edoardo Bastianello , numero matricola: 1188629
 //header "magazzino.h"
+#ifndef magazzinoH
+#define magazzinoH
+
 
 class magazzino{
 public:
@@ -7,7 +10,7 @@ public:
 	magazzino();
 
 	//funzione "add" che aggiunge un certo numero(variabiie "pezzi") di "id" del relativo componente nel megazzino
-	//inserimento in ordine alfabetico
+	//inserimento in ordine alfabetico per poter garantire il corretto funzionamento della ricerca binaria
 	void add(std::string id, int pezzi);
 
 	//funzione "remove" che rimuove un certo numero(variabiie "pezzi") di componenti(raprresentati dal relativo "id") dal megazzino
@@ -46,14 +49,16 @@ private:
 	};
 
 	//funzione ricerca binaria privata
+	//dovendo effettuare molte ricerche e pochi inserimenti, la ricerca binaria risulta piu' efficiente
 	int binSearchCoppie(const vector<Coppia>& a, int from, int to, std::string toFind);
 
 	//funzione che restituisce un int che rappresenta quanti componenti bisogna ordinare oltre a quelli rimossi (questa funzione viene utilizzata da "remove"
 	//restituisce -1 se non e' presente il componente cercato
-	int daOridinareOltreAiRimossi(int pezzi, int index);
+	int daOrdinareOltreAiRimossi(int pezzi, int index);
 
 	//membro
 	std::vector<Coppia> oggetti;
 };
 
+#endif
 
