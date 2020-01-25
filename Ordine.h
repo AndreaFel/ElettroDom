@@ -42,9 +42,9 @@ public:
 	Ordine();
 	
 	//aggiunge un ordine con id, quantità e mese passati per parametro e stato "futuro"
-	void addOrdine(std::string id, int quantita, int mese);
+	void addOrdine(int mese, std::string id, int quantita);
 	
-	ordini getOrdine(int mese, std::string id) const;//ritorna un ordine specifico (se non c'è ritorna un ordine con tutto a -1)
+	int getOrdine(int mese, std::string id, int quantita) const;//ritorna un ordine specifico (se non c'è ritorna un ordine con tutto a -1)
 	std::vector<ordini> getOrdini(int mese) const;//ritorna gli ordini del mese (con stato "futuro")
 	std::vector<ordini> getInAttesa() const;//ritorna tutti gli ordini in attesa
 	std::vector<ordini> getInProduzione() const;//ritorna tutti gli ordini in produzione
@@ -52,26 +52,25 @@ public:
 	int getMeseMax();
 	
 	//controllo componenti già presenti in magazzino o in arrivo, relativi a un certo ordine
-	//utilizzo:	sgetPezziComp(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente);
-	int getPezziComp(ordini o, std::string id);
-	int getMesiComp(ordini o, std::string id); //in caso di più ordini riporta il risultato maggiore 
+	//utilizzo:	getPezziComp(getOrdine(int mese_ordine, string id_elettrodomestico, int quantità), string id_componente);
+	int getPezziComp(int pos, std::string id); //in caso di più risultati riporta il risultato maggiore
+	int getMesiComp(int pos, std::string id); //in caso di più risultati riporta il risultato maggiore 
 	
-	void setInAttesa(int mese, std::string id);//setta uno specifico ordine allo stato "in attesa"
-	void setInProduzione(int mese,std::string id);//setta uno specifico ordine allo stato "in produzione"
-	void setEvaso(int mese, std::string id);//setta uno specifico ordine allo stato "evaso"
-	void annullaOrdine(std::string id);//setta uno specifico ordine allo stato "annullato"
+	//N.B.:		in caso di ordini duplicati viene settato uno a caso (tra quelli non ancora annullati)
+	//utilizzo:	annullaOrdine(getOrdine(int mese_ordine, string id_elettrodomestico, int quantità));
+	void annullaOrdine(int pos);//setta uno specifico ordine allo stato "annullato"
 	
 	//funzione per aggiungere i componenti già presenti in magazzino o in transito, relativi a un certo ordine
-	//N.B.: 	se il componente è già presente (a parità di mesi) ne setta il numero di pezzi (sovrascrive)
-	//utilizzo:	addComponent(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente, int pezzi_componente, int mesi_mancanti);
+	//N.B.: 	se il componente è già presente (come id e mesi) non fa niente
+	//utilizzo:	addComponent(getOrdine(int mese_ordine, string id_elettrodomestico, int quantita), string id_componente, int pezzi_componente, int mesi_mancanti);
 	//WARNING: 	se non si inseriscono tutti i componenti di un ordine esso andrà comunque in produzione (non appena arrivano quelli inseriti)
-	void addComponent(ordini ordine, std::string id, int pezzi, int mesi);
+	void addComponent(int pos, std::string id, int pezzi, int mesi);
 	
 	//funzioni di modifica del numero di pezzi e dei mesi mancanti di un componente
 	//N.B.:		se ci sono più componenti con diversi valori di "mesi" le funzioni non fanno niente
-	//utilizzo:	subPezziComp(getOrdine(int mese_ordine, string id_elettrodomestico), string id_componente, int differenza);
-	void sumPezziComp(ordini o, std::string id, int diff);//somma "diff" componenti (usare diff negativo per sottrarre)
-	void setMesiComp(ordini o, std::string id, int mesi);//setta i mesi (sovrascrive)
+	//utilizzo:	sumPezziComp(getOrdine(int mese_ordine, string id_elettrodomestico, int quantita), string id_componente, int differenza);
+	void sumPezziComp(int pos, std::string id, int diff);//somma "diff" componenti (usare diff negativo per sottrarre)
+	void setMesiComp(int pos, std::string id, int mesi);//setta i mesi (sovrascrive)
 
 	//passa al mese successivo (portando tutti gli ordini "in produzione" a "evaso"). Aggiorna la situazione dei componenti in arrivo.
 	//ritorna una booleana che indica se sono stati evasi degli ordini durante il mese (da riportare al main)
