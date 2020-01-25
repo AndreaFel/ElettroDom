@@ -224,3 +224,31 @@ bool Ordine::incrementaMese(){
 int Ordine::getMeseMax(){
 	return ord[ord.size()-1].mese;
 }
+
+string Ordine::printInArrivo(){//stampa tutti i componenti in arrivo, ossia i componenti con mesi>0 di ordini con stato inAttesa
+	string s="";
+	for(int i=0;i<ord.size();i++)
+		if(ord[i].s==inAttesa)
+			for(int j=0;j<comps[i].size();j++)
+				if(comps[i][j].mesi>0){
+					s+="ID: ";
+					s+=comps[i][j].id;
+					s+="\tPEZZI: ";
+					s+=comps[i][j].pezzi;
+				}
+	return s;
+}
+
+string Ordine::printNonUsati(){//stampa tutti i componenti arrivati ma non usati, quindi mesi=0 e stato inAttesa
+	string s="";
+	for(int i=0;i<ord.size();i++)
+		if(ord[i].s==inAttesa)
+			for(int j=0;j<comps[i].size();j++)
+				if(comps[i][j].mesi==0){
+					s+="ID: ";
+					s+=comps[i][j].id;
+					s+="\tPEZZI: ";
+					s+=comps[i][j].pezzi;
+				}
+	return s;
+}
