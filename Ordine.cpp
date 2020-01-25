@@ -41,7 +41,7 @@ int Ordine::binarySearch(int mese) const{
 }
 
 //aggiunge un ordine con id, quantità e mese passati per parametro e stato "futuro"
-void Ordine::addOrdine(std::string id, int quantita, int mese){
+void Ordine::addOrdine(int mese, std::string id, int quantita){
 	ordini o;
 	o.mese=mese;
 	o.id=id;
@@ -51,19 +51,14 @@ void Ordine::addOrdine(std::string id, int quantita, int mese){
 	sort(ord.begin(), ord.end());
 }
 
-ordini Ordine::getOrdine(int mese, std::string id) const{//ritorna un ordine specifico (se non c'è ritorna un ordine con tutto a -1)
+int Ordine::getOrdine(int mese, std::string id, int quantita) const{//ritorna la posizione un ordine specifico (se non c'è ritorna -1)
 	int i=binarySearch(mese);//ricerca binaria in base al mese
-	ordini o;
-	o.id=-1; o.mese=-1; o.quantita=-1;
-	if(i==-1){
-		return o;
-	}
 	
 	//ricerca sequenziale in base all'id
-	for(;ord[i].id<=id && ord[i].mese==mese;i++)
-		if(ord[i].id==id)
-			return ord[i];
-	return o;//se non trova niente ritorna un ordine vuoto (tutto a -1)
+	for(;i>=0 && ord[i].id<=id && ord[i].mese==mese;i++)
+		if(ord[i].id==id && ord[i].quantita==quantita)
+			return i;
+	return -1;//se non trova niente ritorna un ordine vuoto (tutto a -1)
 }
 
 vector<ordini> Ordine::getOrdini(int mese) const{//ritorna gli ordini del mese (con stato "futuro")
@@ -107,106 +102,91 @@ vector<ordini> Ordine::getEvasi() const{//ritorna tutti gli ordini evasi
 	return v;//se non trova niente ritorna un vettore vuoto
 }
 
-int Ordine::getPezziComp(ordini o, string id){
-	int i=getPos(o);
-	for(int j=0;j<comps[i].size();j++)
-		if(comps[i][j].id==id)
-			return comps[i][j].pezzi;
-	return 0;
+int Ordine::getPezziComp(int pos, string id){
+	if(pos<0) return -1;
+	int pezzi=-1;
+	for(int i=0;i<comps[pos].size();i++)
+		if(comps[pos][i].id==id && comps[pos][i].pezzi>pezzi)
+			pezzi=comps[pos][i].pezzi;
+	return pezzi;
 }
 
-int Ordine::getMesiComp(ordini o, string id){
-	int i=getPos(o);
+int Ordine::getMesiComp(int pos, string id){
+	if(pos<0) return -1;
 	int mesi=-1;
-	for(int j=0;j<comps[i].size();j++)
-		if(comps[i][j].id==id && comps[i][j].mesi>mesi)
-			mesi=comps[i][j].mesi;
+	for(int i=0;i<comps[pos].size();i++)
+		if(comps[pos][i].id==id && comps[pos][i].mesi>mesi)
+			mesi=comps[pos][i].mesi;
 	return mesi;
 }
 
-void Ordine::setInAttesa(int mese, std::string id){//setta uno specifico ordine allo stato "in attesa"
-	int i=binarySearch(mese);//ricerca binaria in base al mese
+void Ordine::annullaOrdine(int pos){//setta uno specifico ordine allo stato "annullato"
+	if(pos<0) return;
+	ord[pos].s=annullato;
 	
-	//ricerca sequenziale in base all'id
-	for(;ord[i].id<=id && ord[i].mese==mese;i++)
-		if(ord[i].id==id)
-			ord[i].s=inAttesa;
-}
-
-void Ordine::setInProduzione(int mese,std::string id){//setta uno specifico ordine allo stato "in produzione"
-	int i=binarySearch(mese);//ricerca binaria in base al mese
-	
-	//ricerca sequenziale in base all'id
-	for(;ord[i].id<=id && ord[i].mese==mese;i++)
-		if(ord[i].id==id)
-			ord[i].s=inProduzione;
-}
-
-void Ordine::setEvaso(int mese, std::string id){//setta uno specifico ordine allo stato "evaso"
-	int i=binarySearch(mese);//ricerca binaria in base al mese
-	
-	//ricerca sequenziale in base all'id
-	for(;ord[i].id<=id && ord[i].mese==mese;i++)
-		if(ord[i].id==id)
-			ord[i].s=evaso;
-}
-
-void Ordine::annullaOrdine(std::string id){//setta uno specifico ordine allo stato "annullato"
-	int i=binarySearch(meseCorrente);//ricerca binaria in base al mese
-	
-	//ricerca sequenziale in base all'id
-	for(;ord[i].id<=id && ord[i].mese==meseCorrente;i++)
-		if(ord[i].id==id)
-			ord[i].s=annullato;
+	//svuota i relativi componenti in arrivo
+	comps[pos].erase(comps[pos].begin(), comps[pos].end());
 }
 
 //aggiunge un componente alla lista dei componenti di un ordine (la posizione del componente in comps è la stessa dell'ordine in ord)
 //se il componente c'è già e ha lo stesso numero di mesi setta il suo numero di pezzi col valore passato
-void Ordine::addComponent(ordini ordine, string id, int pezzi, int mesi){
-	int i=getPos(ordine);
-	bool giaPresente=false;
+void Ordine::addComponent(int pos, string id, int pezzi, int mesi){
+	if(pos<0) return;
 	
-	if(comps.size()<i+1){//modifica la dimensione dell'array (se serve)
-		comps.resize(i+1);
+	//controllo se ci sono più ordini uguali
+	vector<int> indexes {1};
+	indexes[0]=pos;
+	for(int i=pos-1;ord[i].id==ord[pos].id && ord[i].mese==ord[pos].mese;i--)//controllo verso dietro
+		if(ord[i].quantita==ord[pos].quantita)
+			indexes.push_back(i);
+	for(int i=pos+1;ord[i].id==ord[pos].id && ord[i].mese==ord[pos].mese;i++)//controllo verso avanti
+		if(ord[i].quantita==ord[pos].quantita)
+			indexes.push_back(i);
+	
+	if(comps.size()<pos+1){//modifica la dimensione dell'array (se serve)
+		comps.resize(pos+1);
 	}
 	else{//controlla se c'è già il componente e in caso ne setta il numero di pezzi
-		for(int j=0;j<comps[i].size();j++)
-			if(comps[i][j].id==id && comps[i][j].mesi==mesi){
-				comps[i][j].pezzi=pezzi;
-				giaPresente=true;
-				break;
-			}
+		for(int i=0;i<indexes.size();i++)
+			for(int j=0;j<comps[pos].size();j++)
+				if(comps[pos][j].id==id && comps[pos][j].mesi==mesi){
+					indexes.erase(indexes.begin()+i);
+					break;
+				}
 	}
 	
-	if(!giaPresente){//se non era presente lo aggiunge
+	if(indexes.size()>0){//se non era presente almeno in uno degli ordini identici, lo aggiunge a uno a caso tra quelli
 		components c;
 		c.id=id;
 		c.pezzi=pezzi;
 		c.mesi=mesi;
-		comps[i].push_back(c);
+		comps[pos].push_back(c);
 	}
+	
+	//setta il corrispondente ordine in attesa
+	ord[pos].s=inAttesa;
 }
 
-void Ordine::sumPezziComp(ordini o, std::string id, int diff){//somma "diff" componenti
-	int i=getPos(o);
+void Ordine::sumPezziComp(int pos, std::string id, int diff){//somma "diff" componenti
+	if(pos<0) return;
 	int y=-1;
-	for(int j=0;j<comps[i].size();j++)
-		if(comps[i][j].id==id && y==-1)
-			y=j;
-		else if(comps[i][j].id==id && y!=-1)
+	for(int i=0;i<comps[pos].size();i++)
+		if(comps[pos][i].id==id && y==-1)
+			y=i;
+		else if(comps[pos][i].id==id && y!=-1)
 			return;
-	if(y!=-1) comps[i][y].pezzi+=diff;
+	if(y!=-1) comps[pos][y].pezzi+=diff;
 }
 
-void Ordine::setMesiComp(ordini o, std::string id, int mesi){//setta i mesi (sovrascrive)
-	int i=getPos(o);
+void Ordine::setMesiComp(int pos, std::string id, int mesi){//setta i mesi (sovrascrive)
+	if(pos<0) return;
 	int y=-1;
-	for(int j=0;j<comps[i].size();j++)
-		if(comps[i][j].id==id && y==-1)
-			y=j;
-		else if(comps[i][j].id==id && y!=-1)
+	for(int i=0;i<comps[pos].size();i++)
+		if(comps[pos][i].id==id && y==-1)
+			y=i;
+		else if(comps[pos][i].id==id && y!=-1)
 			return;
-	if(y!=-1) comps[i][y].mesi=mesi;
+	if(y!=-1) comps[pos][y].mesi=mesi;
 }
 
 //passa al mese successivo (portando tutti gli ordini "in produzione" a "evaso") e ritorna i nuovi ordini
@@ -217,18 +197,19 @@ bool Ordine::incrementaMese(){
 	bool evasi=false;
 	
 	for(int i=0;i<ord.size();i++)//aggiornamento ordini evasi
-		if(ord[i].s==inProduzione){
-			ord[i].s=evaso;
+		if(ord[i].s==stato::inProduzione){
+			ord[i].s=stato::evaso;
 			evasi=true;
 		}
 	
 	//tutti i mesi non a 0 vanno a mesi-1
 	//se facendo ciò un ordine arriva ad avere tutti i componenti con i mesi a 0 va in produzione
 	for(int i=0;i<comps.size();i++){
-		bool monthTo0=true;
+		bool monthTo0=false;
 		for(int j=0;j<comps[i].size();j++)
 			if(comps[i][j].mesi>0){
 				comps[i][j].mesi--;
+				monthTo0=true;
 				if(comps[i][j].mesi>0)//se uno dei componenti dell'ordine non è ancora a 0
 					monthTo0=false;
 			}
@@ -242,12 +223,4 @@ bool Ordine::incrementaMese(){
 
 int Ordine::getMeseMax(){
 	return ord[ord.size()-1].mese;
-}
-
-int Ordine::getPos(ordini o){
-	int i=binarySearch(o.mese);
-	for(;ord[i].id<=o.id && ord[i].mese==o.mese;i++)
-		if(ord[i].id==o.id)
-			return i;
-	return -1;
 }
