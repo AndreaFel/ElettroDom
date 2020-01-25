@@ -87,14 +87,14 @@ int magazzino::getPezzi(int i)const
 //funzione di stampa
 void magazzino::printMagazzino()const
 {	for(int i=0;i<oggetti.size();i++)
-			cout<<"ID componente: "<<oggetti[i].id<<" || numero di tale componente: "<<oggetti[i].pezzi<<"\n";
+			cout<<"ID: "<<oggetti[i].id<<"\tPEZZI: "<<oggetti[i].pezzi<<"\n";
 }
 
 //funzione magazzinoToString() che restituisce una stringa con i componenti nel magazzino con le relative quantita' in ordine alfabetico
 std::string magazzino::magazzinoToString() const
 {	string output = "";
 	for(int i=0;i<oggetti.size();i++)
-			output = output + "ID componente: " + oggetti[i].id + " || numero di tale componente: " + to_string(oggetti[i].pezzi) + "\n";
+			output = output + "ID: " + oggetti[i].id + "\tPEZZI: " + to_string(oggetti[i].pezzi) + "\n";
 	return output;
 }
 
