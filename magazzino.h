@@ -1,8 +1,11 @@
 //Autore: Edoardo Bastianello , numero matricola: 1188629
 //header "magazzino.h"
+
 #ifndef magazzinoH
 #define magazzinoH
 
+#include <vector>
+#include <iostream>
 
 class magazzino{
 public:
@@ -50,7 +53,7 @@ private:
 
 	//funzione ricerca binaria privata
 	//dovendo effettuare molte ricerche e pochi inserimenti, la ricerca binaria risulta piu' efficiente
-	int binSearchCoppie(const vector<Coppia>& a, int from, int to, std::string toFind);
+	int binSearchCoppie(const std::vector<Coppia>& a, int from, int to, std::string toFind);
 
 	//funzione che restituisce un int che rappresenta quanti componenti bisogna ordinare oltre a quelli rimossi (questa funzione viene utilizzata da "remove"
 	//restituisce -1 se non e' presente il componente cercato
@@ -61,4 +64,3 @@ private:
 };
 
 #endif
-
