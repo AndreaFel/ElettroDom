@@ -5,8 +5,9 @@ using namespace std;
 
 int main(){
 	Gestione ElettroDom {};
-	int mesiMancanti=2;
+	
 	while(!ElettroDom.endProgram()){
+		
 		if(ElettroDom.aggiornaMese())
 			cout<<ElettroDom.stampaStato()<<endl;
 		else
@@ -14,5 +15,7 @@ int main(){
 		
 		cout<<"\n\n\t\tPassa un mese\n\n";
 	}
+	
+	cout<<"Program Ended";
 	return 0;
 }
