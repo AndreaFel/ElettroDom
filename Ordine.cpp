@@ -254,3 +254,12 @@ string Ordine::printNonUsati(){//stampa tutti i componenti arrivati ma non usati
 				}
 	return s;
 }
+
+bool Ordine::endProgram(){
+	bool end=true;
+	for(int i=0;i<ord.size();i++){
+		if(ord[i].s!=evaso && ord[i].s!=annullato)
+			end=false;
+	}
+	return end;
+}
