@@ -80,6 +80,8 @@ public:
 	std::string printInArrivo();
 	//ritorna una stringa con i componenti arrivati ma non ancora usati per produrre pezzi con il formato: ID componente: ID: [id]	PEZZI: [pezzi]\n
 	std::string printNonUsati();
+	
+	bool endProgram();
 private:
 	int meseCorrente;//indica il mese corrente
 	
