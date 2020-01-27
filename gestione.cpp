@@ -71,8 +71,7 @@ vector<componente> Gestione::FileComponenti(){  //Lettura file "components_info.
 	
 	ifstream compIn ("components_info.dat");        //RIGA: [id] [nome] [timestamp] [prezzo1:10] [prezzo11:50] [prezzo51+]
 	if (compIn.is_open()){
-		while (!compIn.eof()){
-			compIn>>id>>nome>>time_stamp>>prezzi[0]>>prezzi[1]>>prezzi[2];
+		while (compIn>>id>>nome>>time_stamp>>prezzi[0]>>prezzi[1]>>prezzi[2]){
 			componente c {id,nome,time_stamp,prezzi};
 			comps.push_back(c);                   //Memorizzazione dei componenti per poi inviarli alla classe Elettrodomestici dopo lettura altro file
 		}
@@ -91,8 +90,7 @@ void Gestione::FileOrdini(){  //lettura file "orders.dat"
 		double fondo;
 		ordersIn>>fondo;
 		cash.addFondo(fondo);
-		while (!ordersIn.eof()){
-			ordersIn>>time_stamp>>model_id>>quantita;
+		while (ordersIn>>time_stamp>>model_id>>quantita){
 			ord.addOrdine(time_stamp, model_id, quantita);
 		}
 		ordersIn.close();
@@ -103,10 +101,9 @@ void Gestione::FileOrdini(){  //lettura file "orders.dat"
 vector<string> Gestione::FileModelli(){ //lettura file models.dat
 	vector<string> models;
 	ifstream modelsIn ("models.dat");
+	string model;
 	if (modelsIn.is_open()){
-		while (!modelsIn.eof()){
-			string model;
-			modelsIn>>model;
+		while (modelsIn>>model){
 			models.push_back(model);
 		}
 		modelsIn.close();
@@ -127,9 +124,8 @@ void Gestione::FileElettrodomestici(){  //lettura vari file modelli: "modelx.dat
 		modelIn>>id>>nome>>prezzo;
 		elettrodomestico e {id, nome, prezzo};
 		if (modelIn.is_open()){
-			while(!modelIn.eof()){
-				//id name quant
-				modelIn>>id>>nome>>qta;
+			while(modelIn>>id>>nome>>qta){
+				//id name quantita
 				for(int j=0;j<comps.size();j++)
 					if(comps[j].getId()==id){
 						e.addComponentToLst(comps[j], qta);
