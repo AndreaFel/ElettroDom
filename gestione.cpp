@@ -53,6 +53,13 @@ string Gestione::ordiniEvasi(){
 	return s;
 }
 
+string Gestione::stampaStato(){
+	string s;
+	s+= componentiInArrivo();
+	s+= inventario();
+	s+= ordiniEvasi();
+}
+
 vector<componente> Gestione::FileComponenti(){  //Lettura file "components_info.dat"
 	string id, nome;
 	int time_stamp = 0;

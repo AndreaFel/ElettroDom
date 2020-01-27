@@ -43,9 +43,9 @@ class Gestione{
 
 		std::string stampaStato(); //chiama nell'ordine: ordiniInArrivo(), inventario(), ordiniEvasi()
 		
-		////////////ONLY FOR TEST///////////////
-		//void debug();
-		////////////////////////////////////////
+
+		int PezziOttimizzati(int n);
+		bool getInAttesa();
 		
 	private:
 		cassa cash {0};
@@ -67,8 +67,7 @@ class Gestione{
 		- setta in produzione l'ordine se ci sono i fondi necessari nella cassa
 
 		*/
-		int PezziOttimizzati(int n);
-		bool getInAttesa();
+
 
 		std::vector<componente> FileComponenti();
 		void FileOrdini();
