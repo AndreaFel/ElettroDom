@@ -2,6 +2,15 @@
 		per ogni cella di componentiElettrodomestico, calcolo quanti pezzi NECESSARI del relativo componente
 		poi calcolo i pezzi SUFFICIENTI controllando quanti ce ne sono in magazzino
 		ALLORA CALCOLO IL PREZZO OTTIMIZZATO DEI SINGOLI COMPONENTI (prezzo* pezzi)
+			questo vuol dire:
+				- se 8<= componenti SUFFICIENTI <=10
+					ne considero 11 e ne calcolo il prezzo
+						la differenza 11-SUFFICIENTI andrà nel magazzino
+				- se 47<= componenti SUFFICIENTI <= 50
+					ne considero 51 e ne calcolo il prezzo
+						la differenza 51-SUFFICIENTI va in magazzino
+				- altrimenti ne considero solo quanti sono i SUFFICIENTI
+					
 
 
 2)IL PREZZO OTTIMIZZATO EÌ' MAGGIORE DELLA CASSA?
