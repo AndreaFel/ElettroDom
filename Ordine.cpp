@@ -125,7 +125,7 @@ void Ordine::annullaOrdine(int pos){//setta uno specifico ordine allo stato "ann
 	ord[pos].s=annullato;
 	
 	//svuota i relativi componenti in arrivo
-	if(comps.size>pos)
+	if(comps.size()>pos)
 		comps[pos].erase(comps[pos].begin(), comps[pos].end());
 }
 
