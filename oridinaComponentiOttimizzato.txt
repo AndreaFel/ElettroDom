@@ -1,0 +1,22 @@
+1) CALCOLO PREZZO OTTIMIZZATO
+		per ogni cella di componentiElettrodomestico, calcolo quanti pezzi NECESSARI del relativo componente
+		poi calcolo i pezzi SUFFICIENTI controllando quanti ce ne sono in magazzino
+		ALLORA CALCOLO IL PREZZO OTTIMIZZATO DEI SINGOLI COMPONENTI (prezzo* pezzi)
+
+
+2)IL PREZZO OTTIMIZZATO EÌ' MAGGIORE DELLA CASSA?
+
+
+		NO
+		---> FACCIO ORDINE OTTIMIZZATO
+				per ogni cella di componentiElettrodomestico, calcolo quanti pezzi NECESSARI del relativo componente
+				poi calcolo i pezzi SUFFICIENTI controllando quanti ce ne sono in magazzino
+				ALLORA ORDINO TALI PEZZI E RIMUOVO QUELLI CHE SERVONO DAL MAGAZZINO(remove) E SCALO IL PREZZO DALLA CASSA(subtractFondo)
+
+
+		SI
+		---->FACCIO ORDINE STANDARD
+				per ogni cella di componentiElettrodomestico, calcolo quanti pezzi NECESSARI del relativo componente
+				poi calcolo i pezzi SUFFICIENTI controllando quanti ce ne sono in magazzino
+				ALLORA ORDINO TALI PEZZI DIRETTAMENTE, SENZA VERIFICARE CHE ABBIA ABBASTANZA FONDO
+					in caso in cui il fondo non sia sufficiente allora ANNULLO L'ORDINE E IL PROGRAMMA TERMINA PER L'ECCEZIONE DI cassa
