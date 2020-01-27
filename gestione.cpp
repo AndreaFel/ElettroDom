@@ -48,7 +48,7 @@ string Gestione::ordiniEvasi(){
 		s+= "ID MODELLO: ";
 		s+= v[i].id;
 		s+= "\tQTA': ";
-		s+= to_String(v[i].quantita);
+		s+= to_string(v[i].quantita);
 		s+= "\n";
 	}
 		
@@ -255,11 +255,6 @@ bool Gestione::endProgram(){
 }
 
 
-
-int main()
-{
-	return 0;
-}
 
 
 
