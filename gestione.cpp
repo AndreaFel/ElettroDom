@@ -217,11 +217,16 @@ void Gestione::produzioneMese(){
 
 						int pezzi_aggiuntivi = PezziOttimizzati(comp_sufficienti) - comp_sufficienti;
 
-						addictional_components c;
-						c.id = comp_nec[k].getComponente().getId();
-						c.pezzi = pezzi_aggiuntivi;
-						c.timer = comp_nec[k].getComponente().getMesi();
-						inArrivo.push_back(c);               //aggiunta nel vettore dei componenti in arrivo
+						
+						if(pezzi_aggiuntivi>0){
+							addictional_components c;
+							c.id = comp_nec[k].getComponente().getId();
+							c.pezzi = pezzi_aggiuntivi;
+							c.timer = comp_nec[k].getComponente().getMesi();
+							inArrivo.push_back(c);               //aggiunta nel vettore dei componenti in arrivo
+
+						}
+						
 					}
 
 				}
