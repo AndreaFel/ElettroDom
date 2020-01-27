@@ -144,6 +144,7 @@ void Gestione::FileElettrodomestici(){  //lettura vari file modelli: "modelx.dat
 bool Gestione::aggiornaMese(){
 	//Sleep(3000);      //blocca il programma per 3 secondi e incrementa il mese
 	mese++;
+	bool evasi = ord.incrementaMese();
 	produzioneMese();
 	for(int i=0;i<inArrivo.size();i++)
 	{
@@ -154,7 +155,7 @@ bool Gestione::aggiornaMese(){
 		} 
 
 	}
-	return ord.incrementaMese();
+	return evasi;
 }
 
 bool Gestione::checkCassa(double d){
