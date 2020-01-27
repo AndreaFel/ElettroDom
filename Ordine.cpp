@@ -66,7 +66,7 @@ vector<ordini> Ordine::getOrdini(int mese) const{//ritorna gli ordini del mese (
 	vector<ordini> v {};
 	
 	//ricerca sequenziale fino al cambio del mese
-	for(;ord[i].mese==mese;i++)
+	for(;ord[i].mese==mese && i>-1;i++)
 		if(ord[i].s==futuro)
 			v.push_back(ord[i]);
 	return v;//se non trova niente ritorna un vettore vuoto
