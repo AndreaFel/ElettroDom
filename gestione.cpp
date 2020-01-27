@@ -28,7 +28,7 @@ string Gestione::componentiInArrivo(){
 		s+="ID: ";
 		s+= inArrivo[i].id;
 		s+= "\tPEZZI: ";
-		s+=inArrivo[i].pezzi;
+		s+= to_string(inArrivo[i].pezzi);
 		s+= "\n";
 	}
 	return s;
