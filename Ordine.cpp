@@ -234,7 +234,7 @@ string Ordine::printInArrivo(){//stampa tutti i componenti in arrivo, ossia i co
 					s+="ID: ";
 					s+=comps[i][j].id;
 					s+="\tPEZZI: ";
-					s+=comps[i][j].pezzi;
+					s+=to_string(comps[i][j].pezzi);
 					s+="\n";
 				}
 	return s;
@@ -249,7 +249,7 @@ string Ordine::printNonUsati(){//stampa tutti i componenti arrivati ma non usati
 					s+="ID: ";
 					s+=comps[i][j].id;
 					s+="\tPEZZI: ";
-					s+=comps[i][j].pezzi;
+					s+=to_string(comps[i][j].pezzi);
 					s+="\n";
 				}
 	return s;
