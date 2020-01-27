@@ -1,5 +1,5 @@
 //Autore: Andrea Felline , numero matricola: 1195927
-//header "Ordine.cpp"
+//file "Ordine.cpp"
 
 #include <vector>
 #include <iostream>
@@ -226,7 +226,7 @@ int Ordine::getMeseMax(){
 }
 
 string Ordine::printInArrivo(){//stampa tutti i componenti in arrivo, ossia i componenti con mesi>0 di ordini con stato inAttesa
-	string s="";
+	string s="\n";
 	for(int i=0;i<ord.size();i++)
 		if(ord[i].s==inAttesa)
 			for(int j=0;j<comps[i].size();j++)
@@ -235,12 +235,13 @@ string Ordine::printInArrivo(){//stampa tutti i componenti in arrivo, ossia i co
 					s+=comps[i][j].id;
 					s+="\tPEZZI: ";
 					s+=comps[i][j].pezzi;
+					s+="\n";
 				}
 	return s;
 }
 
 string Ordine::printNonUsati(){//stampa tutti i componenti arrivati ma non usati, quindi mesi=0 e stato inAttesa
-	string s="";
+	string s="\n";
 	for(int i=0;i<ord.size();i++)
 		if(ord[i].s==inAttesa)
 			for(int j=0;j<comps[i].size();j++)
@@ -249,6 +250,7 @@ string Ordine::printNonUsati(){//stampa tutti i componenti arrivati ma non usati
 					s+=comps[i][j].id;
 					s+="\tPEZZI: ";
 					s+=comps[i][j].pezzi;
+					s+="\n";
 				}
 	return s;
 }
