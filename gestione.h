@@ -5,13 +5,15 @@
 #ifndef GestioneH
 #define GestioneH
 
-#include <iostream>
 #include <vector>
-#include "elettrodomestico.h"
-#include "magazzino.h"
+#include <iostream>
 #include "componente.h"
+#include "componentiElettrodomestico.h"
+#include "elettrodomestico.h"
 #include "cassa.h"
+#include "magazzino.h"
 #include "Ordine.h"
+#include "gestione.h"
 
 struct addictional_components
 {
@@ -35,7 +37,7 @@ class Gestione{
 
 	
 		//Funzioni di stampa, restituiscono una stringa per visualizzazione nel main
-		std::string ordiniInArrivo(); //stampa gli acquisti effettuati ma non arrivati -> stampa vector<componenti>
+		std::string componentiInArrivo(); //stampa gli acquisti effettuati ma non arrivati -> stampa vector<componenti>
 		std::string inventario(); // stampa componenti in magazzino -> stampa vector<componenti> oggetti
 		std::string ordiniEvasi(); //stampa gli ordini evasi, prendendoli con la funzione getEvasi() della classe ordini
 
@@ -46,9 +48,9 @@ class Gestione{
 		////////////////////////////////////////
 		
 	private:
-		cassa cash;
+		cassa cash {0};
 		magazzino mag; //lista dei componenti che sono presenti in magazzino
-		std::vector<addictional_components> inArrivo; //lista dei componenti ordinati, in arrivo
+		std::vector<addictional_components> inArrivo; //lista dei componenti aggiuntivi ordinati, in arrivo
 		Ordine ord; //classe contenente un vettore ordinato di ordini in base al time_stamp
 		std::vector<elettrodomestico> db; //"catalogo" degli elettrodomestici da noi prodotti
 		int mese;
@@ -65,6 +67,8 @@ class Gestione{
 		- setta in produzione l'ordine se ci sono i fondi necessari nella cassa
 
 		*/
+		int PezziOttimizzati(int n);
+		bool getInAttesa();
 
 		std::vector<componente> FileComponenti();
 		void FileOrdini();
