@@ -69,7 +69,7 @@ vector<componente> Gestione::FileComponenti(){  //Lettura file "components_info.
 	vector<double> prezzi {3};
 	vector<componente> comps;
 	
-	ifstream compIn (".//ElettroDom//components_info.dat");        //RIGA: [id] [nome] [timestamp] [prezzo1:10] [prezzo11:50] [prezzo51+]
+	ifstream compIn ("components_info.dat");        //RIGA: [id] [nome] [timestamp] [prezzo1:10] [prezzo11:50] [prezzo51+]
 	if (compIn.is_open()){
 		while (!compIn.eof()){
 			compIn>>id>>nome>>time_stamp>>prezzi[0]>>prezzi[1]>>prezzi[2];
@@ -86,7 +86,7 @@ void Gestione::FileOrdini(){  //lettura file "orders.dat"
 	string model_id;
 	int time_stamp = 0, quantita = 0;
 	
-	ifstream ordersIn (".//ElettroDom//orders.dat");      //RIGA: [time_stamp] [model_id] [quantity]
+	ifstream ordersIn ("orders.dat");      //RIGA: [time_stamp] [model_id] [quantity]
 	if (ordersIn.is_open()){
 		double fondo;
 		ordersIn>>fondo;
@@ -100,9 +100,9 @@ void Gestione::FileOrdini(){  //lettura file "orders.dat"
 }
 
 
-vector<string> Gestione::FileModelli(){
+vector<string> Gestione::FileModelli(){ //lettura file models.dat
 	vector<string> models;
-	ifstream modelsIn (".//ElettroDom//models.dat");
+	ifstream modelsIn ("models.dat");
 	if (modelsIn.is_open()){
 		while (!modelsIn.eof()){
 			string model;
@@ -114,12 +114,12 @@ vector<string> Gestione::FileModelli(){
 	return models;
 }
 
-void Gestione::FileElettrodomestici(){  //lettura file "modelx.dat"
+void Gestione::FileElettrodomestici(){  //lettura vari file modelli: "modelx.dat"
 	vector<componente> comps = FileComponenti();
 	vector<string> models=FileModelli();
 	
 	for(int i=0;i<models.size();i++){
-		ifstream modelIn (".//ElettroDom//"+models[i]);
+		ifstream modelIn (models[i]);
 		
 		string id, nome;
 		int qta;
