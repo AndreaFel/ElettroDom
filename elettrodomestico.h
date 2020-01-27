@@ -5,7 +5,6 @@
 
 #include <vector>
 #include <iostream>
-#include "componente.h"
 #include "componentiElettrodomestico.h"
 
 class elettrodomestico{
