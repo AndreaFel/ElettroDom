@@ -23,6 +23,7 @@ Gestione::Gestione(){
 
 string Gestione::componentiInArrivo(){
 	string s="Sono stati ordinati i seguenti componenti:";
+	s+= ord.printInArrivo();
 	for(int i=0;i<inArrivo.size();i++){
 		s+="ID: ";
 		s+= inArrivo[i].id;
@@ -35,6 +36,7 @@ string Gestione::componentiInArrivo(){
 
 string Gestione::inventario(){
 	string s = "Inventario Magazzino:";
+	s+= ord.printNonUsati();
 	s+= mag.magazzinoToString();
 	return s;
 }
@@ -46,7 +48,7 @@ string Gestione::ordiniEvasi(){
 		s+= "ID MODELLO: ";
 		s+= v[i].id;
 		s+= "\tQTA': ";
-		s+= v[i].quantita;
+		s+= to_String(v[i].quantita);
 		s+= "\n";
 	}
 		
@@ -58,6 +60,7 @@ string Gestione::stampaStato(){
 	s+= componentiInArrivo();
 	s+= inventario();
 	s+= ordiniEvasi();
+	return s;
 }
 
 vector<componente> Gestione::FileComponenti(){  //Lettura file "components_info.dat"
@@ -236,9 +239,6 @@ void Gestione::produzioneMese(){
 
 				else {ord.annullaOrdine(ord.getOrdine(mese_ord, model_id, quantita));}
 
-			
-				
-
 		
 		}	
 	}
@@ -251,5 +251,16 @@ int Gestione::PezziOttimizzati(int n){
 }
 
 bool Gestione::endProgram(){
-	return ord.endProgram()
+	return ord.endProgram();
 }
+
+
+
+int main()
+{
+	return 0;
+}
+
+
+
+
