@@ -250,18 +250,6 @@ int Gestione::PezziOttimizzati(int n){
 	return n;
 }
 
-bool Gestione::getInAttesa(){
-	if (ord.getInAttesa().size()==0) return false;
-	return true;
+bool Gestione::endProgram(){
+	return ord.endProgram()
 }
-
-
-
-int main()
-{
-	return 0;
-}
-
-
-
-
