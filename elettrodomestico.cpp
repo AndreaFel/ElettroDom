@@ -4,8 +4,6 @@
 using namespace std;
 #include <vector>
 #include <string>
-#include "componente.h"
-#include "componentiElettrodomestico.h"
 #include "elettrodomestico.h"
 
 //costruttore
@@ -36,4 +34,5 @@ void elettrodomestico::addComponentToLst(componente ins, int quantity)
 {	componentiElettrodomestico inserito{ins, quantity};
 	lstComponenti.push_back(inserito);
 }
+
 
