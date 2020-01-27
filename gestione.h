@@ -46,6 +46,9 @@ class Gestione{
 
 		int PezziOttimizzati(int n);
 		bool getInAttesa();
+
+		bool aggiornaMese(); //Funzione che blocca il programma per qualche secondo e poi passa alle operazioni del mese successivo
+							//scorre il vettore componenti in arrivo, decrementando il timer e mandando i pezzi in magazzino quando è uguale a 0
 		
 	private:
 		cassa cash {0};
@@ -57,8 +60,7 @@ class Gestione{
 
 		bool checkCassa(double d); //Verifica del fondo cassa prima di eseguire ordini
 
-		bool aggiornaMese(); //Funzione che blocca il programma per qualche secondo e poi passa alle operazioni del mese successivo
-							//scorre il vettore componenti in arrivo, decrementando il timer e mandando i pezzi in magazzino quando è uguale a 0
+		
 
 		void produzioneMese();
 		/*
