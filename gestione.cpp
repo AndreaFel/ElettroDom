@@ -210,7 +210,7 @@ void Gestione::produzioneMese(){
 				{
 					for(int k=0;k<comp_nec.size();k++)
 					{
-						comp_necessari = comp_nec[i].getPezzi();
+						comp_necessari = comp_nec[i].getPezzi()*quantita;
 						int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[i].getComponente().getId() , comp_necessari);
 
 						ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[i].getComponente().getId(),comp_sufficienti,comp_nec[i].getComponente().getMesi());
@@ -229,7 +229,7 @@ void Gestione::produzioneMese(){
 
 					for(int k=0;k<comp_nec.size();k++)
 					{
-						comp_necessari = comp_nec[i].getPezzi();
+						comp_necessari = comp_nec[i].getPezzi()*quantita;
 						int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[i].getComponente().getId() , comp_necessari);
 
 						ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[i].getComponente().getId(),comp_sufficienti,comp_nec[i].getComponente().getMesi());
