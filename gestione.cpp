@@ -194,14 +194,14 @@ void Gestione::produzioneMese(){
 				double costo_produzione = 0;
 				double costo_ottimizzato = 0;
 				int comp_necessari;
-				for(int i=0;i<comp_nec.size();i++)
+				for(int k=0;k<comp_nec.size();k++)
 				{
-					comp_necessari = comp_nec[i].getPezzi()*quantita;
-					int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[i].getComponente().getId() , comp_necessari);
+					comp_necessari = comp_nec[k].getPezzi()*quantita;
+					int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari);
 
-					costo_produzione += comp_sufficienti * comp_nec[i].getComponente().getPrezzo(comp_sufficienti);  //produzione standard
+					costo_produzione += comp_sufficienti * comp_nec[k].getComponente().getPrezzo(comp_sufficienti);  //produzione standard
 
-					costo_ottimizzato += PezziOttimizzati(comp_sufficienti) * comp_nec[i].getComponente().getPrezzo(PezziOttimizzati(comp_sufficienti));
+					costo_ottimizzato += PezziOttimizzati(comp_sufficienti) * comp_nec[k].getComponente().getPrezzo(PezziOttimizzati(comp_sufficienti));
 
 				}
 
@@ -210,17 +210,17 @@ void Gestione::produzioneMese(){
 				{
 					for(int k=0;k<comp_nec.size();k++)
 					{
-						comp_necessari = comp_nec[i].getPezzi()*quantita;
-						int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[i].getComponente().getId() , comp_necessari);
+						comp_necessari = comp_nec[k].getPezzi()*quantita;
+						int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari);
 
-						ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[i].getComponente().getId(),comp_sufficienti,comp_nec[i].getComponente().getMesi());
+						ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(),comp_sufficienti,comp_nec[k].getComponente().getMesi());
 
 						int pezzi_aggiuntivi = PezziOttimizzati(comp_sufficienti) - comp_sufficienti;
 
 						addictional_components c;
-						c.id = comp_nec[i].getComponente().getId();
+						c.id = comp_nec[k].getComponente().getId();
 						c.pezzi = pezzi_aggiuntivi;
-						c.timer = comp_nec[i].getComponente().getMesi();
+						c.timer = comp_nec[k].getComponente().getMesi();
 						inArrivo.push_back(c);               //aggiunta nel vettore dei componenti in arrivo
 					}
 
@@ -229,10 +229,10 @@ void Gestione::produzioneMese(){
 
 					for(int k=0;k<comp_nec.size();k++)
 					{
-						comp_necessari = comp_nec[i].getPezzi()*quantita;
-						int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[i].getComponente().getId() , comp_necessari);
+						comp_necessari = comp_nec[k].getPezzi()*quantita;
+						int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari);
 
-						ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[i].getComponente().getId(),comp_sufficienti,comp_nec[i].getComponente().getMesi());
+						ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(),comp_sufficienti,comp_nec[k].getComponente().getMesi());
 					}
 
 				}
