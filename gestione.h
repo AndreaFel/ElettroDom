@@ -45,7 +45,7 @@ class Gestione{
 		
 
 		int PezziOttimizzati(int n);
-		bool getInAttesa();
+		bool endProgram();
 
 		bool aggiornaMese(); //Funzione che blocca il programma per qualche secondo e poi passa alle operazioni del mese successivo
 							//scorre il vettore componenti in arrivo, decrementando il timer e mandando i pezzi in magazzino quando è uguale a 0
