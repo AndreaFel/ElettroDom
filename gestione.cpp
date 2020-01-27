@@ -22,7 +22,7 @@ Gestione::Gestione(){
 }
 
 string Gestione::componentiInArrivo(){
-	string s="Sono stati ordinati i seguenti componenti:";
+	string s="Sono stati ordinati i seguenti componenti:\n";
 	s+= ord.printInArrivo();
 	for(int i=0;i<inArrivo.size();i++){
 		s+="ID: ";
@@ -35,19 +35,19 @@ string Gestione::componentiInArrivo(){
 }
 
 string Gestione::inventario(){
-	string s = "Inventario Magazzino:";
+	string s = "Inventario Magazzino:\n";
 	s+= ord.printNonUsati();
 	s+= mag.magazzinoToString();
 	return s;
 }
 
 string Gestione::ordiniEvasi(){
-	string s = "Sono stati evasi i seguenti ordini finora";
+	string s = "Sono stati evasi i seguenti ordini finora:\n";
 	vector<ordini> v = ord.getEvasi();
 	for(int i=0;i<v.size();i++){
-		s+= "ID MODELLO: ";
+		s+= "ID: ";
 		s+= v[i].id;
-		s+= "\tQTA': ";
+		s+= "\tPEZZI: ";
 		s+= to_string(v[i].quantita);
 		s+= "\n";
 	}
