@@ -1,5 +1,5 @@
 //Autore: Andrea Felline , numero matricola: 1195927
-//header "Ordine.cpp"
+//header "Ordine.h"
 
 #ifndef OrdineH
 #define OrdineH
@@ -77,9 +77,9 @@ public:
 	bool incrementaMese();
 	
 	//ritorna una stringa con i componenti in arrivo con il formato: ID: [id]	PEZZI: [pezzi]\n
-	string printInArrivo();
+	std::string printInArrivo();
 	//ritorna una stringa con i componenti arrivati ma non ancora usati per produrre pezzi con il formato: ID componente: ID: [id]	PEZZI: [pezzi]\n
-	string printNonUsati();
+	std::string printNonUsati();
 private:
 	int meseCorrente;//indica il mese corrente
 	
