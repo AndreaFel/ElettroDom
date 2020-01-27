@@ -22,7 +22,7 @@ Gestione::Gestione(){
 }
 
 string Gestione::componentiInArrivo(){
-	string s="Sono stati ordinati i seguenti componenti:\n";
+	string s="\nSono stati ordinati i seguenti componenti:";
 	s+= ord.printInArrivo();
 	for(int i=0;i<inArrivo.size();i++){
 		s+="ID: ";
@@ -35,14 +35,14 @@ string Gestione::componentiInArrivo(){
 }
 
 string Gestione::inventario(){
-	string s = "Inventario Magazzino:\n";
+	string s = "\nInventario Magazzino:";
 	s+= ord.printNonUsati();
 	s+= mag.magazzinoToString();
 	return s;
 }
 
 string Gestione::ordiniEvasi(){
-	string s = "Sono stati evasi i seguenti ordini finora:\n";
+	string s = "\nSono stati evasi i seguenti ordini finora:\n";
 	vector<ordini> v = ord.getEvasi();
 	for(int i=0;i<v.size();i++){
 		s+= "ID: ";
@@ -184,64 +184,63 @@ void Gestione::produzioneMese(){
 		if(pos == -1) ord.annullaOrdine(ord.getOrdine(mese_ord, model_id, quantita));  //se non viene trovato, l'ordine è annullato
 		else
 		{
+			vector<componentiElettrodomestico> comp_nec = db[pos].getComponents();  //componenti necessari per la produzione dell'elettrodomestico
 
+			double costo_produzione = 0;
+			double costo_ottimizzato = 0;
+			int comp_necessari;
+			for(int k=0;k<comp_nec.size();k++)
+			{
+				comp_necessari = comp_nec[k].getPezzi()*quantita;
+				int comp_mag=mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari), comp_sufficienti = comp_necessari;
+				if(comp_mag>=0)
+					comp_sufficienti-=comp_mag;
 
-					vector<componentiElettrodomestico> comp_nec = db[pos].getComponents();  //componenti necessari per la produzione dell'elettrodomestico
+				costo_produzione += comp_sufficienti * comp_nec[k].getComponente().getPrezzo(comp_sufficienti);  //produzione standard
 
-				double costo_produzione = 0;
-				double costo_ottimizzato = 0;
-				int comp_necessari;
+				costo_ottimizzato += PezziOttimizzati(comp_sufficienti) * comp_nec[k].getComponente().getPrezzo(PezziOttimizzati(comp_sufficienti));
+
+			}
+
+			if(cash.check(costo_ottimizzato))
+			{
+				for(int k=0;k<comp_nec.size();k++)
+				{
+					comp_necessari = comp_nec[k].getPezzi()*quantita;
+					int comp_mag=mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari), comp_sufficienti = comp_necessari;
+					if(comp_mag>=0)
+						comp_sufficienti-=comp_mag;
+
+					ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(),comp_sufficienti,comp_nec[k].getComponente().getMesi());
+
+					int pezzi_aggiuntivi = PezziOttimizzati(comp_sufficienti) - comp_sufficienti;
+
+					if(pezzi_aggiuntivi>0){
+						addictional_components c;
+						c.id = comp_nec[k].getComponente().getId();
+						c.pezzi = pezzi_aggiuntivi;
+						c.timer = comp_nec[k].getComponente().getMesi();
+						inArrivo.push_back(c);               //aggiunta nel vettore dei componenti in arrivo
+
+					}
+
+				}
+
+			}
+			else if(cash.check(costo_produzione)){
+
 				for(int k=0;k<comp_nec.size();k++)
 				{
 					comp_necessari = comp_nec[k].getPezzi()*quantita;
 					int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari);
 
-					costo_produzione += comp_sufficienti * comp_nec[k].getComponente().getPrezzo(comp_sufficienti);  //produzione standard
-
-					costo_ottimizzato += PezziOttimizzati(comp_sufficienti) * comp_nec[k].getComponente().getPrezzo(PezziOttimizzati(comp_sufficienti));
-
+					ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(),comp_sufficienti,comp_nec[k].getComponente().getMesi());
 				}
 
+			}
 
-				if(cash.check(costo_ottimizzato))
-				{
-					for(int k=0;k<comp_nec.size();k++)
-					{
-						comp_necessari = comp_nec[k].getPezzi()*quantita;
-						int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari);
-
-						ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(),comp_sufficienti,comp_nec[k].getComponente().getMesi());
-
-						int pezzi_aggiuntivi = PezziOttimizzati(comp_sufficienti) - comp_sufficienti;
-
-						
-						if(pezzi_aggiuntivi>0){
-							addictional_components c;
-							c.id = comp_nec[k].getComponente().getId();
-							c.pezzi = pezzi_aggiuntivi;
-							c.timer = comp_nec[k].getComponente().getMesi();
-							inArrivo.push_back(c);               //aggiunta nel vettore dei componenti in arrivo
-
-						}
-						
-					}
-
-				}
-				else if(cash.check(costo_produzione)){
-
-					for(int k=0;k<comp_nec.size();k++)
-					{
-						comp_necessari = comp_nec[k].getPezzi()*quantita;
-						int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari);
-
-						ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(),comp_sufficienti,comp_nec[k].getComponente().getMesi());
-					}
-
-				}
-
-				else {ord.annullaOrdine(ord.getOrdine(mese_ord, model_id, quantita));}
-
-		
+			else 
+				ord.annullaOrdine(ord.getOrdine(mese_ord, model_id, quantita));
 		}	
 	}
 }
@@ -255,9 +254,3 @@ int Gestione::PezziOttimizzati(int n){
 bool Gestione::endProgram(){
 	return ord.endProgram();
 }
-
-
-
-
-
-
