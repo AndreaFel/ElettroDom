@@ -200,6 +200,8 @@ bool Ordine::incrementaMese(){
 	for(int i=0;i<ord.size();i++)//aggiornamento ordini evasi
 		if(ord[i].s==stato::inProduzione){
 			ord[i].s=stato::evaso;
+			if(comps.size()>i)
+				comps[i].erase(comps[i].begin(), comps[i].end());
 			evasi=true;
 		}
 	
