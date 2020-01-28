@@ -1,8 +1,13 @@
+Gruppo 3: Simone Cecchinato, Edoardo Bastianello, Andrea Felline
+
 comando per compilare:
-g++ cassa.cpp componente.cpp componentiElettrodomestico.cpp elettrodomestico.cpp gestione.cpp main.cpp Ordine.cpp magazzino.cpp -o test -O2 -std=c++11
+g++ cassa.cpp componente.cpp componentiElettrodomestico.cpp elettrodomestico.cpp gestione.cpp main.cpp Ordine.cpp magazzino.cpp -o ElettroDom -O2 -std=c++11
+
+comando per eseguire:
+./ElettroDom
+
 
 Esempi di output:
-
 							
 Nessun ordine evaso
 
