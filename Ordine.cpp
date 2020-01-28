@@ -208,17 +208,22 @@ vector<string> Ordine::incrementaMese(){
 	//tutti i mesi non a 0 vanno a mesi-1
 	//se facendo ciò un ordine arriva ad avere tutti i componenti con i mesi a 0 va in produzione
 	for(int i=0;i<comps.size();i++){
-		bool monthTo0=false;
-		for(int j=0;j<comps[i].size();j++)
+		int monthTo0=0;//valore di default
+		for(int j=0;j<comps[i].size();j++){
 			if(comps[i][j].mesi>0){
 				comps[i][j].mesi--;
-				monthTo0=true;
-				if(comps[i][j].mesi>0)//se uno dei componenti dell'ordine non è ancora a 0
-					monthTo0=false;
+				if(monthTo0==0)
+					monthTo0=1;//valore se tutti i componenti sono a 0
 			}
+			if(comps[i][j].mesi>0)//se uno dei componenti dell'ordine non è ancora a 0
+					monthTo0=2;//valore se almeno un componente è > 0
+			if(i==0)
+				cout<<"\nComp[0]["<<j<<"]: "<<comps[i][j].id<<" "<<comps[i][j].mesi;
+		}
 		
-		if(monthTo0)
+		if(monthTo0==1){
 			ord[i].s=inProduzione;
+		}
 	}
 	
 	return ids;
