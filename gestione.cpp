@@ -57,9 +57,6 @@ string Gestione::ordiniEvasi(){
 
 string Gestione::stampaStato(){
 	string s;
-	s+="cassa: ";
-	s+=to_string(cash.getFondo());
-	s+="\n";
 	s+= componentiInArrivo();
 	s+= inventario();
 	s+= ordiniEvasi();
