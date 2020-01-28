@@ -16,6 +16,6 @@ int main(){
 		cout<<"\n\n\t\tPassa un mese\n\n";
 	}
 	
-	cout<<"Program Ended";
+	cout<<"Program Ended"<<endl;
 	return 0;
 }
