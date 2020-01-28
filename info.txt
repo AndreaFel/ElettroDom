@@ -1,0 +1,16 @@
+comando per compilare:
+g++ cassa.cpp componente.cpp componentiElettrodomestico.cpp elettrodomestico.cpp gestione.cpp main.cpp Ordine.cpp magazzino.cpp -o test -O2 -std=c++11
+
+Esempi di output:
+
+orders.dat:
+
+
+orders1.dat:
+
+
+orders2.dat:
+
+
+orders3.dat:
+
