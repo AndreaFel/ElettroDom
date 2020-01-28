@@ -22,7 +22,7 @@ Gestione::Gestione(){
 }
 
 string Gestione::componentiInArrivo(){
-	string s="Sono stati ordinati i seguenti componenti:\n";
+	string s="\nSono stati ordinati i seguenti componenti:";
 	s+= ord.printInArrivo();
 	for(int i=0;i<inArrivo.size();i++){
 		s+="ID: ";
@@ -35,14 +35,14 @@ string Gestione::componentiInArrivo(){
 }
 
 string Gestione::inventario(){
-	string s = "Inventario Magazzino:\n";
+	string s = "\nInventario Magazzino:";
 	s+= ord.printNonUsati();
 	s+= mag.magazzinoToString();
 	return s;
 }
 
 string Gestione::ordiniEvasi(){
-	string s = "Sono stati evasi i seguenti ordini finora:\n";
+	string s = "\nSono stati evasi i seguenti ordini finora:\n";
 	vector<ordini> v = ord.getEvasi();
 	for(int i=0;i<v.size();i++){
 		s+= "ID: ";
