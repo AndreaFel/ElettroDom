@@ -54,9 +54,9 @@ class Gestione{
 		cassa cash {0};
 		magazzino mag; //lista dei componenti che sono presenti in magazzino
 		std::vector<addictional_components> inArrivo; //lista dei componenti aggiuntivi ordinati, in arrivo
-		Ordine ord; //classe contenente un vettore ordinato di ordini in base al time_stamp
-		std::vector<elettrodomestico> db; //"catalogo" degli elettrodomestici da noi prodotti
-		int mese;
+		Ordine ord; //istanza della classe ordine per utilizzare le sue funzioni
+		std::vector<elettrodomestico> db; //"catalogo" degli elettrodomestici da noi prodotti; serve per verificare se il modello ordinato è in produzione nella nostra azienda
+		int mese; //variabile per regolare time_stamp
 
 		bool checkCassa(double d); //Verifica del fondo cassa prima di eseguire ordini
 
@@ -71,10 +71,10 @@ class Gestione{
 		*/
 
 
-		std::vector<componente> FileComponenti();
-		void FileOrdini();
-		void FileElettrodomestici();
-		std::vector<std::string> FileModelli();
+		std::vector<componente> FileComponenti();  //lettura da file "components_info.dat"
+		void FileOrdini();	//lettura file "orders.dat"
+		std::vector<std::string> FileModelli(); //lettura file "models.dat"
+		void FileElettrodomestici(); //lettura vari file modelli elettrodomestici del database
 		
 };
 
