@@ -3,8 +3,79 @@ g++ cassa.cpp componente.cpp componentiElettrodomestico.cpp elettrodomestico.cpp
 
 Esempi di output:
 
-orders.dat:
+							orders.dat:
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Nessun ordine evaso
 
+
+                Passa un mese
+
+Nessun ordine evaso
+
+
+                Passa un mese
+
+Nessun ordine evaso
+
+
+                Passa un mese
+
+Nessun ordine evaso
+
+
+                Passa un mese
+
+Nessun ordine evaso
+
+
+                Passa un mese
+
+
+Sono stati ordinati i seguenti componenti:
+ID: idPiatto004 PEZZI: 4
+
+Inventario Magazzino:
+ID: idMotore001 PEZZI: 2
+ID: idVetro003  PEZZI: 2
+
+Sono stati evasi i seguenti ordini finora:
+ID: idAspirapolvere001  PEZZI: 2
+
+
+
+                Passa un mese
+
+
+Sono stati ordinati i seguenti componenti:
+
+Inventario Magazzino:
+
+Sono stati evasi i seguenti ordini finora:
+ID: idPhon003   PEZZI: 1
+ID: idAspirapolvere001  PEZZI: 2
+ID: idLavastoviglie004  PEZZI: 1
+
+
+
+                Passa un mese
+
+
+Sono stati ordinati i seguenti componenti:
+
+Inventario Magazzino:
+
+Sono stati evasi i seguenti ordini finora:
+ID: idPhon003   PEZZI: 1
+ID: idAspirapolvere001  PEZZI: 2
+ID: idLavastoviglie004  PEZZI: 1
+ID: idMicroonde002      PEZZI: 2
+
+
+
+                Passa un mese
+
+Program Ended
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 orders1.dat:
 
