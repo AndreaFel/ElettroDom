@@ -304,7 +304,7 @@ string Ordine::printNonUsati(){//stampa tutti i componenti arrivati ma non usati
 bool Ordine::endProgram(){
 	bool end=true;
 	for(int i=0;i<ord.size();i++){
-		if(ord[i].s!=evaso && ord[i].s!=annullato)
+		if(ord[i].s!=evaso && ord[i].s!=annullato && ord[i].s!=rimandato)
 			end=false;
 	}
 	return end;
