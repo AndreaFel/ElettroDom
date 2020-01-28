@@ -193,16 +193,16 @@ void Ordine::setMesiComp(int pos, std::string id, int mesi){//setta i mesi (sovr
 //passa al mese successivo (portando tutti gli ordini "in produzione" a "evaso") e ritorna i nuovi ordini
 //	NB: se si preferisce prendere i nuovi ordini separatamente, si può considerare questa funzione come void 
 //		e poi chiamare "getOrdini" all'occorrenza
-bool Ordine::incrementaMese(){
+vector<string> Ordine::incrementaMese(){
 	meseCorrente++;
-	bool evasi=false;
+	vector<string> ids {};
 	
 	for(int i=0;i<ord.size();i++)//aggiornamento ordini evasi
 		if(ord[i].s==stato::inProduzione){
 			ord[i].s=stato::evaso;
+			ids.push_back(ord[i].id);
 			if(comps.size()>i)
 				comps[i].erase(comps[i].begin(), comps[i].end());
-			evasi=true;
 		}
 	
 	//tutti i mesi non a 0 vanno a mesi-1
@@ -221,7 +221,7 @@ bool Ordine::incrementaMese(){
 			ord[i].s=inProduzione;
 	}
 	
-	return evasi;
+	return ids;
 }
 
 int Ordine::getMeseMax(){
