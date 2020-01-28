@@ -139,76 +139,76 @@ void Gestione::produzioneMese(){  //produzione mensile
 		if(pos == -1) ord.annullaOrdine(ord.getOrdine(mese_ord, model_id, quantita));  //..se non viene trovato, l'ordine è annullato
 		else
 		{
+			vector<componentiElettrodomestico> comp_nec = db[pos].getComponents();  //componenti necessari per la produzione dell'elettrodomestico
+
+			double costo_produzione = 0; 	//costo produzione = costo solo dei componenti necessari per la produzione dell'elettrodomestico
+			double costo_ottimizzato = 0;	//costo ottimizzato = costo con l'ordine di più pezzi se ci avviciniamo alla fascia di prezzo successiva (politica aziendale di PezziOttimizzati())
+			int comp_necessari;
+
+			for(int k=0;k<comp_nec.size();k++) //calcolo costo produzione e costo ottimizzato
+			{
+				comp_necessari = comp_nec[k].getPezzi()*quantita;
+				int comp_mag=mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari), comp_sufficienti = comp_necessari;
+				if(comp_mag>-1)
+					comp_sufficienti -= comp_mag;
+				
+				costo_produzione += comp_sufficienti * comp_nec[k].getComponente().getPrezzo(comp_sufficienti);  
+
+				costo_ottimizzato += PezziOttimizzati(comp_sufficienti) * comp_nec[k].getComponente().getPrezzo(PezziOttimizzati(comp_sufficienti));
+
+			}
+
+			/*
+			Se in cassa ci sono fondi sufficienti per la produzione con ottimizzazione dell'ordine di pezzi (fondo > costo ottimizzato) allora si procede a quel tipo di produzione
+			Altrimenti
+				- se in cassa ci sono fondi sufficienti per la produzione dell'elettrodomestico senza l'ordine di più pezzi (fondo > costo produzione) allora si procede a quel tipo di produzione
+				- Altrimenti si annulla l'ordine e si passa al successivo
+			*/
 
 
-					vector<componentiElettrodomestico> comp_nec = db[pos].getComponents();  //componenti necessari per la produzione dell'elettrodomestico
+			if(cash.check(costo_ottimizzato))
+			{
+				cash.subtractFondo(costo_ottimizzato);
+				for(int k=0;k<comp_nec.size();k++)
+				{
+					comp_necessari = comp_nec[k].getPezzi()*quantita;
+					int comp_mag=mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari), comp_sufficienti = comp_necessari;
+					if(comp_mag>-1)
+						comp_sufficienti -= comp_mag;
+					
+					ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(),comp_sufficienti,comp_nec[k].getComponente().getMesi());
 
-				double costo_produzione = 0; 	//costo produzione = costo solo dei componenti necessari per la produzione dell'elettrodomestico
-				double costo_ottimizzato = 0;	//costo ottimizzato = costo con l'ordine di più pezzi se ci avviciniamo alla fascia di prezzo successiva (politica aziendale di PezziOttimizzati())
-				int comp_necessari;
+					int pezzi_aggiuntivi = PezziOttimizzati(comp_sufficienti) - comp_sufficienti;
 
-				for(int k=0;k<comp_nec.size();k++) //calcolo costo produzione e costo ottimizzato
+					
+					if(pezzi_aggiuntivi>0){
+						addictional_components c;
+						c.id = comp_nec[k].getComponente().getId();
+						c.pezzi = pezzi_aggiuntivi;
+						c.timer = comp_nec[k].getComponente().getMesi();
+						inArrivo.push_back(c);               //aggiunta nel vettore dei componenti in arrivo
+
+					}
+					
+				}
+
+			}
+			else if(cash.check(costo_produzione))
+			{
+				cash.subtractFondo(costo_produzione);
+
+				for(int k=0;k<comp_nec.size();k++)
 				{
 					comp_necessari = comp_nec[k].getPezzi()*quantita;
 					int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari);
 
-					costo_produzione += comp_sufficienti * comp_nec[k].getComponente().getPrezzo(comp_sufficienti);  
-
-					costo_ottimizzato += PezziOttimizzati(comp_sufficienti) * comp_nec[k].getComponente().getPrezzo(PezziOttimizzati(comp_sufficienti));
-
+					ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(),comp_sufficienti,comp_nec[k].getComponente().getMesi());
 				}
 
-				/*
-				Se in cassa ci sono fondi sufficienti per la produzione con ottimizzazione dell'ordine di pezzi (fondo > costo ottimizzato) allora si procede a quel tipo di produzione
-				Altrimenti
-					- se in cassa ci sono fondi sufficienti per la produzione dell'elettrodomestico senza l'ordine di più pezzi (fondo > costo produzione) allora si procede a quel tipo di produzione
-					- Altrimenti si annulla l'ordine e si passa al successivo
-				*/
+			}
 
-
-				if(cash.check(costo_ottimizzato))
-				{
-					cash.subtractFondo(costo_ottimizzato);
-					for(int k=0;k<comp_nec.size();k++)
-					{
-						comp_necessari = comp_nec[k].getPezzi()*quantita;
-						int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari);
-
-						ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(),comp_sufficienti,comp_nec[k].getComponente().getMesi());
-
-						int pezzi_aggiuntivi = PezziOttimizzati(comp_sufficienti) - comp_sufficienti;
-
-						
-						if(pezzi_aggiuntivi>0){
-							addictional_components c;
-							c.id = comp_nec[k].getComponente().getId();
-							c.pezzi = pezzi_aggiuntivi;
-							c.timer = comp_nec[k].getComponente().getMesi();
-							inArrivo.push_back(c);               //aggiunta nel vettore dei componenti in arrivo
-
-						}
-						
-					}
-
-				}
-				else if(cash.check(costo_produzione))
-				{
-					cash.subtractFondo(costo_produzione);
-
-					for(int k=0;k<comp_nec.size();k++)
-					{
-						comp_necessari = comp_nec[k].getPezzi()*quantita;
-						int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari);
-
-						ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(),comp_sufficienti,comp_nec[k].getComponente().getMesi());
-					}
-
-				}
-
-				else {ord.annullaOrdine(ord.getOrdine(mese_ord, model_id, quantita));}
-
-		
-		}	
+			else ord.annullaOrdine(ord.getOrdine(mese_ord, model_id, quantita));
+		}
 	}
 }
 
@@ -287,14 +287,3 @@ void Gestione::FileElettrodomestici(){  //lettura vari file modelli elettrodomes
 		db.push_back(e);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
