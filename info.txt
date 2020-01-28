@@ -3,7 +3,6 @@ g++ cassa.cpp componente.cpp componentiElettrodomestico.cpp elettrodomestico.cpp
 
 Esempi di output:
 
-							orders.dat:
 							
 Nessun ordine evaso
 
@@ -25,7 +24,25 @@ Nessun ordine evaso
 
                 Passa un mese
 
-Nessun ordine evaso
+
+Sono stati ordinati i seguenti componenti:
+ID: idCarter008 PEZZI: 1
+ID: idVetro003  PEZZI: 1
+ID: idVetro003  PEZZI: 2
+ID: idPiatto004 PEZZI: 4
+
+Inventario Magazzino:
+ID: idResistenza010     PEZZI: 3
+ID: idCavettame005      PEZZI: 10
+ID: idMotore001 PEZZI: 1
+ID: idTubo006   PEZZI: 2
+ID: idCavettame005      PEZZI: 3
+ID: idMotore001 PEZZI: 2
+ID: idCavettame005      PEZZI: 3
+
+Sono stati evasi i seguenti ordini finora:
+ID: idAspirapolvere001  PEZZI: 1
+
 
 
                 Passa un mese
@@ -37,8 +54,10 @@ ID: idPiatto004 PEZZI: 4
 Inventario Magazzino:
 ID: idMotore001 PEZZI: 2
 ID: idVetro003  PEZZI: 2
+ID: idCavettame005      PEZZI: 3
 
 Sono stati evasi i seguenti ordini finora:
+ID: idAspirapolvere001  PEZZI: 1
 ID: idAspirapolvere001  PEZZI: 2
 
 
@@ -49,8 +68,10 @@ ID: idAspirapolvere001  PEZZI: 2
 Sono stati ordinati i seguenti componenti:
 
 Inventario Magazzino:
+ID: idCavettame005      PEZZI: 3
 
 Sono stati evasi i seguenti ordini finora:
+ID: idAspirapolvere001  PEZZI: 1
 ID: idPhon003   PEZZI: 1
 ID: idAspirapolvere001  PEZZI: 2
 ID: idLavastoviglie004  PEZZI: 1
@@ -63,8 +84,10 @@ ID: idLavastoviglie004  PEZZI: 1
 Sono stati ordinati i seguenti componenti:
 
 Inventario Magazzino:
+ID: idCavettame005      PEZZI: 3
 
 Sono stati evasi i seguenti ordini finora:
+ID: idAspirapolvere001  PEZZI: 1
 ID: idPhon003   PEZZI: 1
 ID: idAspirapolvere001  PEZZI: 2
 ID: idLavastoviglie004  PEZZI: 1
