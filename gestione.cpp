@@ -80,7 +80,7 @@ bool Gestione::endProgram(){  //funzione che fa terminare il programma  (l'incre
 
 bool Gestione::aggiornaMese(){  //operazioni da effetturare mensilmente
 	mese++;
-	bool evasi = ord.incrementaMese();  //aggiornamento mese nella classe ordine
+	vector<string> evasi = ord.incrementaMese();  //aggiornamento mese nella classe ordine
 	produzioneMese();	//produzione mensile
 	for(int i=0;i<inArrivo.size();i++)       //scorro il vettore dei pezzi in più, per decrementare il timer ed eventualmente (se è a 0) immagazzinare i pezzi come fondo di magazzino
 	{
@@ -91,7 +91,18 @@ bool Gestione::aggiornaMese(){  //operazioni da effetturare mensilmente
 		} 
 
 	}
-	return evasi;  //se ci sono ordini evasi (true) il main chiama le funzioni di stampa dello stato dell'azienda
+	for(int i=0; i<evasi.size();i++){
+		for(int j=0;j<db.size();j++)
+		{    
+			if(db[j].getId() == evasi[i])
+			{
+				cash.addFondo(db[j].getPrezzo());
+			} 
+		}
+
+
+	}
+	return evasi.size() != 0;  //se ci sono ordini evasi (true) il main chiama le funzioni di stampa dello stato dell'azienda
 }
 
 
@@ -156,6 +167,7 @@ void Gestione::produzioneMese(){  //produzione mensile
 
 				if(cash.check(costo_ottimizzato))
 				{
+					cash.subtractFondo(costo_ottimizzato);
 					for(int k=0;k<comp_nec.size();k++)
 					{
 						comp_necessari = comp_nec[k].getPezzi()*quantita;
@@ -178,7 +190,9 @@ void Gestione::produzioneMese(){  //produzione mensile
 					}
 
 				}
-				else if(cash.check(costo_produzione)){
+				else if(cash.check(costo_produzione))
+				{
+					cash.subtractFondo(costo_produzione);
 
 					for(int k=0;k<comp_nec.size();k++)
 					{
