@@ -1,6 +1,20 @@
 //Autore: Andrea Felline , numero matricola: 1195927
 //header "Ordine.h"
 
+/*
+La classe Ordine si occupa di gestire tutte le fasi degli ordini, da quando arrivano a quando vengono evasi o annullati.
+Gli ordini vengono inizialmente caricati, attraverso la funzione addOrdine(), in un vettore di "ordini" (una struct con 
+mese di arrivo, id dell'elettrodomestico, quantità e stato dell'ordine).
+Gli ordini non ancora arrivati hanno lo stato a "futuro".
+Quando arriva il mese giusto viene chiamata la funzione getOrdini() che riporta gli ordini del mese.
+Per ogni ordine vengono aggiunti i componenti necessari a costruirlo e lo stato va in "inAttesa". Ogni componente ha un 
+"timer" che indica quanti mesi mancano al suo arrivo. Quando arrivano tutti i componenti l'ordine va in "inProduzione" e il
+mese dopo in "evaso". Se non ci sono abbastanza fondi nella cassa per acquistare tutti i componenti necessari, l'ordine viene
+annullato attraverso "annullaOrdine()".
+A ogni mese che passa viene chiamata la funzione aggiornaMese() che passa gli ordini "inProduzione" a "evaso" e decrementa il
+timer di tutti i componenti non ancora arrivati. Inoltre riporta true se sono stati evasi nuovi ordini.
+*/
+
 #ifndef OrdineH
 #define OrdineH
 
