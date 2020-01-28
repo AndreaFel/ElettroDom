@@ -61,13 +61,13 @@ int Ordine::getOrdine(int mese, std::string id, int quantita) const{//ritorna la
 	return -1;//se non trova niente ritorna un ordine vuoto (tutto a -1)
 }
 
-vector<ordini> Ordine::getOrdini(int mese) const{//ritorna gli ordini del mese (con stato "futuro")
+vector<ordini> Ordine::getOrdini(int mese) const{//ritorna gli ordini del mese (con stato "futuro" o "rimandato")
 	int i=binarySearch(mese);//ricerca binaria in base al mese
 	vector<ordini> v {};
 	
 	//ricerca sequenziale fino al cambio del mese
 	for(;ord[i].mese==mese && i>-1;i++)
-		if(ord[i].s==futuro)
+		if(ord[i].s==futuro || ord[i].s==rimandato)
 			v.push_back(ord[i]);
 	return v;//se non trova niente ritorna un vettore vuoto
 }
@@ -120,9 +120,49 @@ int Ordine::getMesiComp(int pos, string id){
 	return mesi;
 }
 
+void Ordine::rimandaOrdine(int pos){
+	if(pos<0) return;
+	if(ord[pos].s!=rimandato){
+		ord[pos].s=rimandato;
+		ord[pos].mese=meseCorrente+1;
+	}else{//controllo se ci sono altri ordini uguali non ancora annullati
+		bool trovato=false;
+		for(int i=pos-1;ord[i].id==ord[pos].id && ord[i].mese==ord[pos].mese;i--)//controllo verso dietro
+			if(ord[i].quantita==ord[pos].quantita && ord[i].s!=rimandato){
+				ord[i].s=rimandato;
+				ord[pos].mese=meseCorrente+1;
+				trovato=true;
+				break;
+			}
+		for(int i=pos+1;!trovato && ord[i].id==ord[pos].id && ord[i].mese==ord[pos].mese;i++)//controllo verso avanti
+			if(ord[i].quantita==ord[pos].quantita && ord[i].s!=rimandato){
+				ord[i].s=rimandato;
+				ord[pos].mese=meseCorrente+1;
+				break;
+			}
+	}
+}
+
 void Ordine::annullaOrdine(int pos){//setta uno specifico ordine allo stato "annullato"
 	if(pos<0) return;
-	ord[pos].s=annullato;
+	if(ord[pos].s!=annullato)
+		ord[pos].s=annullato;
+	else{//controllo se ci sono altri ordini uguali non ancora annullati
+		bool trovato=false;
+		for(int i=pos-1;ord[i].id==ord[pos].id && ord[i].mese==ord[pos].mese;i--)//controllo verso dietro
+			if(ord[i].quantita==ord[pos].quantita && ord[i].s!=annullato){
+				ord[i].s=annullato;
+				pos=i;
+				trovato=true;
+				break;
+			}
+		for(int i=pos+1;!trovato && ord[i].id==ord[pos].id && ord[i].mese==ord[pos].mese;i++)//controllo verso avanti
+			if(ord[i].quantita==ord[pos].quantita && ord[i].s!=annullato){
+				ord[i].s=annullato;
+				pos=i;
+				break;
+			}
+	}
 	
 	//svuota i relativi componenti in arrivo
 	if(comps.size()>pos)
