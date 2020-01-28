@@ -57,6 +57,7 @@ string Gestione::ordiniEvasi(){
 
 string Gestione::stampaStato(){
 	string s;
+	s+= 
 	s+= componentiInArrivo();
 	s+= inventario();
 	s+= ordiniEvasi();
@@ -96,7 +97,7 @@ bool Gestione::aggiornaMese(){  //operazioni da effetturare mensilmente
 		{    
 			if(db[j].getId() == evasi[i])
 			{
-				cash.addFondo(db[j].getPrezzo());
+				cash.addFondo(db[j].getPrezzoVendita());
 			} 
 		}
 
