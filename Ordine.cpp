@@ -217,8 +217,6 @@ vector<string> Ordine::incrementaMese(){
 			}
 			if(comps[i][j].mesi>0)//se uno dei componenti dell'ordine non è ancora a 0
 					monthTo0=2;//valore se almeno un componente è > 0
-			if(i==0)
-				cout<<"\nComp[0]["<<j<<"]: "<<comps[i][j].id<<" "<<comps[i][j].mesi;
 		}
 		
 		if(monthTo0==1){
