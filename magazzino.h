@@ -1,5 +1,8 @@
 //Autore: Edoardo Bastianello , numero matricola: 1188629
 //header "magazzino.h"
+//il magazzino contiene i componenti ordinati in piu' del necessario. Ad esempio:
+//al posto di ordinare 10 componenti, se ne ordinano 11 per avere lo sconto; il componente in eccesso, una volta arrivato, viene inserito nel magazzino
+//il magazzino e' stato realizzato come un dizionario
 
 #ifndef magazzinoH
 #define magazzinoH
