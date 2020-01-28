@@ -206,7 +206,7 @@ void Gestione::produzioneMese(){  //produzione mensile
 
 			}
 
-			else ord.annullaOrdine(ord.getOrdine(mese_ord, model_id, quantita));
+			else ord.rimandaOrdine(ord.getOrdine(mese_ord, model_id, quantita)); //l'ordine viene messo momentaneamente in pausa
 		}
 	}
 }
