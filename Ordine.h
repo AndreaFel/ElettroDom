@@ -12,7 +12,7 @@ Per ogni ordine vengono aggiunti i componenti necessari a costruirlo e lo stato 
 mese dopo in "evaso". Se non ci sono abbastanza fondi nella cassa per acquistare tutti i componenti necessari, l'ordine viene
 annullato attraverso "annullaOrdine()".
 A ogni mese che passa viene chiamata la funzione aggiornaMese() che passa gli ordini "inProduzione" a "evaso" e decrementa il
-timer di tutti i componenti non ancora arrivati. Inoltre riporta true se sono stati evasi nuovi ordini.
+timer di tutti i componenti non ancora arrivati. Inoltre riporta un vettore con gli id degli elettrodomestici venduti.
 */
 
 #ifndef OrdineH
@@ -88,7 +88,7 @@ public:
 
 	//passa al mese successivo (portando tutti gli ordini "in produzione" a "evaso"). Aggiorna la situazione dei componenti in arrivo.
 	//ritorna una booleana che indica se sono stati evasi degli ordini durante il mese (da riportare al main)
-	bool incrementaMese();
+	std::vector<std::string> incrementaMese();
 	
 	//ritorna una stringa con i componenti in arrivo con il formato: ID: [id]	PEZZI: [pezzi]\n
 	std::string printInArrivo();
