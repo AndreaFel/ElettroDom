@@ -57,6 +57,9 @@ string Gestione::ordiniEvasi(){
 
 string Gestione::stampaStato(){
 	string s;
+	s+="cassa: ";
+	s+=to_string(cash.getFondo());
+	s+="\n";
 	s+= componentiInArrivo();
 	s+= inventario();
 	s+= ordiniEvasi();
@@ -81,7 +84,6 @@ bool Gestione::endProgram(){  //funzione che fa terminare il programma  (l'incre
 bool Gestione::aggiornaMese(){  //operazioni da effetturare mensilmente
 	mese++;
 	vector<string> evasi = ord.incrementaMese();  //aggiornamento mese nella classe ordine
-	produzioneMese();	//produzione mensile
 	for(int i=0;i<inArrivo.size();i++)       //scorro il vettore dei pezzi in più, per decrementare il timer ed eventualmente (se è a 0) immagazzinare i pezzi come fondo di magazzino
 	{
 		inArrivo[i].timer --;
@@ -102,6 +104,7 @@ bool Gestione::aggiornaMese(){  //operazioni da effetturare mensilmente
 
 
 	}
+	produzioneMese();	//produzione mensile
 	return evasi.size() != 0;  //se ci sono ordini evasi (true) il main chiama le funzioni di stampa dello stato dell'azienda
 }
 
@@ -152,9 +155,7 @@ void Gestione::produzioneMese(){  //produzione mensile
 					comp_sufficienti -= comp_mag;
 				
 				costo_produzione += comp_sufficienti * comp_nec[k].getComponente().getPrezzo(comp_sufficienti);  
-
 				costo_ottimizzato += PezziOttimizzati(comp_sufficienti) * comp_nec[k].getComponente().getPrezzo(PezziOttimizzati(comp_sufficienti));
-
 			}
 
 			/*
@@ -216,8 +217,8 @@ void Gestione::produzioneMese(){  //produzione mensile
 vector<componente> Gestione::FileComponenti(){  //Lettura file "components_info.dat"
 	string id, nome;
 	int time_stamp = 0;
-	vector<double> prezzi {3};
-	vector<componente> comps;
+	vector<double> prezzi {0,0,0};
+	vector<componente> comps {0};
 	
 	ifstream compIn ("components_info.dat");        //RIGA: [id] [nome] [timestamp] [prezzo1:10] [prezzo11:50] [prezzo51+]
 	if (compIn.is_open()){
@@ -227,7 +228,6 @@ vector<componente> Gestione::FileComponenti(){  //Lettura file "components_info.
 		}
 		compIn.close();
 	}
-	
 	return comps;
 }
 

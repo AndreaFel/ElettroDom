@@ -11,7 +11,8 @@ class componente{
 public:
 	//costruttore vuoto non ammesso
 	//costruttore: alla creazione vengono settati l'id, il nome, i mesi necessari per l'invio e i 3 prezzi (per l'acquisto di 1-10, 11-50 e 51+ pezzi)
-	componente(std::string id, std::string nome, int mesi, std::vector<double> prezzi);		
+	componente(std::string id, std::string nome, int mesi, std::vector<double> prezzi);	
+	componente();	
 
 	//funzioni di lettura
 	std::string getId()const;
@@ -23,10 +24,10 @@ public:
 	
 private:
 	//dati membro
-	std::string id;
-	std::string nome;
-	int mesi;
-	std::vector <double> prezzi;
+	std::string id {""};
+	std::string nome {""};
+	int mesi {1};
+	std::vector <double> prezzi {0,0,0};
 };
 
 #endif
