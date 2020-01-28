@@ -57,7 +57,6 @@ string Gestione::ordiniEvasi(){
 
 string Gestione::stampaStato(){
 	string s;
-	s+= 
 	s+= componentiInArrivo();
 	s+= inventario();
 	s+= ordiniEvasi();
