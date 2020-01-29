@@ -44,9 +44,10 @@ void magazzino::remove(string id, int pezzi)
 		return; //elemento non presente
 	//se non ci sono abbastanza pezzi
 	if(oggetti[i].pezzi < pezzi)
-	{	oggetti[i].pezzi = 0;
-	}
-	oggetti[i].pezzi -= pezzi; //ci sono abbastanza componenti
+		oggetti[i].pezzi = 0;
+	
+	else
+		oggetti[i].pezzi -= pezzi; //ci sono abbastanza componenti
 }
 
 
