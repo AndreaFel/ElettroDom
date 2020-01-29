@@ -8,7 +8,7 @@ comando per eseguire:
 
 
 Esempi di output:
-							
+	
 Nessun ordine evaso
 
 
@@ -41,9 +41,10 @@ ID: idResistenza010     PEZZI: 3
 ID: idCavettame005      PEZZI: 10
 ID: idMotore001 PEZZI: 1
 ID: idTubo006   PEZZI: 2
-ID: idCavettame005      PEZZI: 3
+ID: idCavettame005      PEZZI: 1
+ID: idCavettame005      PEZZI: 47
 ID: idMotore001 PEZZI: 2
-ID: idCavettame005      PEZZI: 3
+ID: idCavettame005      PEZZI: 4
 
 Sono stati evasi i seguenti ordini finora:
 ID: idAspirapolvere001  PEZZI: 1
@@ -59,7 +60,7 @@ ID: idPiatto004 PEZZI: 4
 Inventario Magazzino:
 ID: idMotore001 PEZZI: 2
 ID: idVetro003  PEZZI: 2
-ID: idCavettame005      PEZZI: 3
+ID: idCavettame005      PEZZI: 4
 
 Sono stati evasi i seguenti ordini finora:
 ID: idAspirapolvere001  PEZZI: 1
@@ -73,7 +74,7 @@ ID: idAspirapolvere001  PEZZI: 2
 Sono stati ordinati i seguenti componenti:
 
 Inventario Magazzino:
-ID: idCavettame005      PEZZI: 3
+ID: idCavettame005      PEZZI: 4
 
 Sono stati evasi i seguenti ordini finora:
 ID: idAspirapolvere001  PEZZI: 1
@@ -89,7 +90,7 @@ ID: idLavastoviglie004  PEZZI: 1
 Sono stati ordinati i seguenti componenti:
 
 Inventario Magazzino:
-ID: idCavettame005      PEZZI: 3
+ID: idCavettame005      PEZZI: 4
 
 Sono stati evasi i seguenti ordini finora:
 ID: idAspirapolvere001  PEZZI: 1
