@@ -38,19 +38,15 @@ void magazzino::add(string id, int pezzi)
 
 
 //funzione remove
-int magazzino::remove(string id, int pezzi)
-{	int daOrdinare = 0;
-	int i = check(id);
+void magazzino::remove(string id, int pezzi)
+{	int i = check(id);
 	if(i<0)
-		return -1; //elemento non presente
+		return; //elemento non presente
 	//se non ci sono abbastanza pezzi
 	if(oggetti[i].pezzi < pezzi)
-	{	daOrdinare = daOrdinareOltreAiRimossi(pezzi, i);
-		oggetti[i].pezzi = 0;
-		return daOrdinare;	//restituisce il numero di componenti da ordinare
+	{	oggetti[i].pezzi = 0;
 	}
-	oggetti[i].pezzi -= pezzi;
-	return daOrdinare; //ci sono abbastanza componenti
+	oggetti[i].pezzi -= pezzi; //ci sono abbastanza componenti
 }
 
 
@@ -67,8 +63,8 @@ int magazzino::checkEnough(string id, int pezzi)
 	if(i<0)
 		return -1;
 	if(oggetti[i].pezzi > pezzi)
-		return 0;	//non serve ordinare altri pezzi
-	return pezzi - oggetti[i].pezzi; //numero di pezzi da ordinare oltre a quelli presenti in magazzino
+		return pezzi;	//ritorna quanti se ne toglierebbero
+	return oggetti[i].pezzi; //andrebbero tolti tutti
 }
 
 //funzioni di lettura
@@ -109,10 +105,4 @@ int magazzino::binSearchCoppie(const vector<Coppia>& a, int from, int to, string
 	if(middle<toFind)
 		return binSearchCoppie(a, mid+1, to, toFind);
 	return binSearchCoppie(a, from, mid-1, toFind);
-}
-
-int magazzino::daOrdinareOltreAiRimossi(int pezzi, int index)
-{	if(oggetti[index].pezzi > pezzi)
-		return 0;	//non serve ordinare altri pezzi
-	return pezzi - oggetti[index].pezzi; //numero di pezzi da ordinare oltre a quelli rimossi dal magazzino
 }

@@ -20,15 +20,13 @@ public:
 	void add(std::string id, int pezzi);
 
 	//funzione "remove" che rimuove un certo numero(variabiie "pezzi") di componenti(raprresentati dal relativo "id") dal megazzino
-	//restituisce il numero di pezzi da ordinare oltre a quelli  rimossi
-	//restituisce 0 se ci sono abbastanza elementi nel magazzino(non serve ordinare nessun elemento)
-	//restituisce -1 se non e' presente il componente cercato
-	int remove(std::string id, int pezzi);
+	//se si cercano di togliere piu' pezzi di quelli presenti, si tolgono tutti i pezzi
+	void remove(std::string id, int pezzi);
 
 	//funzione "checkEnough" che verifica che ci sia un numero di un certo componente(raprresentato da "id") maggiore o uguale a quanto indicato dal parametro "pezzi"
-	//restituisce un int che rappresenta quanti pezzi bisognerebbe ordinare se si decidesse di rimuovere dal magazzino un numero di componenti pari a parametro "pezzi"
+	//restituisce un int che rappresenta quanti pezzi andrebbero tolti dal magazzino se si orindasse un numero di pezzi pari a "pezzi"
 	//restituisce -1 se non e' presente il componente cercato
-	//restituisce 0 se ci sono abbastanza elementi
+	//restituisce 0 se andrebbe orinato un numero di pezzi maggiore o uguale a quelli presenti
 	int checkEnough(std::string id, int pezzi);
 
 	//funzione "check" che controlla se vi e' un certo componente nel magazzino
@@ -57,10 +55,6 @@ private:
 	//funzione ricerca binaria privata
 	//dovendo effettuare molte ricerche e pochi inserimenti, la ricerca binaria risulta piu' efficiente
 	int binSearchCoppie(const std::vector<Coppia>& a, int from, int to, std::string toFind);
-
-	//funzione che restituisce un int che rappresenta quanti componenti bisogna ordinare oltre a quelli rimossi (questa funzione viene utilizzata da "remove"
-	//restituisce -1 se non e' presente il componente cercato
-	int daOrdinareOltreAiRimossi(int pezzi, int index);
 
 	//membro
 	std::vector<Coppia> oggetti;

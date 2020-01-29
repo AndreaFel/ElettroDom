@@ -171,7 +171,12 @@ void Gestione::produzioneMese(){  //produzione mensile
 					comp_necessari = comp_nec[k].getPezzi()*quantita;
 					int comp_mag=mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari), comp_sufficienti = comp_necessari;
 					if(comp_mag>-1)
-						comp_sufficienti -= comp_mag;
+					{	comp_sufficienti -= comp_mag;
+						mag.remove(comp_nec[k].getComponente().getId(), comp_mag);
+						if(comp_mag>0)
+						{	ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(), comp_mag, 0);
+						}
+					}	
 					
 					ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(),comp_sufficienti,comp_nec[k].getComponente().getMesi());
 
@@ -197,7 +202,15 @@ void Gestione::produzioneMese(){  //produzione mensile
 				for(int k=0;k<comp_nec.size();k++)
 				{
 					comp_necessari = comp_nec[k].getPezzi()*quantita;
-					int comp_sufficienti = comp_necessari - mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari);
+
+					int comp_mag=mag.checkEnough(comp_nec[k].getComponente().getId() , comp_necessari), comp_sufficienti = comp_necessari;
+					if(comp_mag>-1)
+					{	comp_sufficienti -= comp_mag;
+						mag.remove(comp_nec[k].getComponente().getId(), comp_mag);
+						if(comp_mag>0)
+						{	ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(), comp_mag, 0);
+						}
+					}
 
 					ord.addComponent(ord.getOrdine(mese_ord, model_id, quantita),comp_nec[k].getComponente().getId(),comp_sufficienti,comp_nec[k].getComponente().getMesi());
 				}
