@@ -26,7 +26,6 @@ public:
 	//funzione "checkEnough" che verifica che ci sia un numero di un certo componente(raprresentato da "id") maggiore o uguale a quanto indicato dal parametro "pezzi"
 	//restituisce un int che rappresenta quanti pezzi andrebbero tolti dal magazzino se si orindasse un numero di pezzi pari a "pezzi"
 	//restituisce -1 se non e' presente il componente cercato
-	//restituisce 0 se andrebbe orinato un numero di pezzi maggiore o uguale a quelli presenti
 	int checkEnough(std::string id, int pezzi);
 
 	//funzione "check" che controlla se vi e' un certo componente nel magazzino
